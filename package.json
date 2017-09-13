@@ -12,11 +12,18 @@
     "react-dom": "^15.6.1",
     "react-icons-kit": "^1.0.7",
     "react-json-view": "^1.12.4",
+    "react-notification-system": "^0.2.15",
+    "react-redux": "^5.0.6",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.13",
     "react-sidenav": "^2.1.2",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-observable": "^0.16.0",
+    "rxjs": "^5.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

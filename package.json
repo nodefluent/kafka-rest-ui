@@ -22,7 +22,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "kafka:start": "./kafka-setup/start.sh",
+    "kafka:stop": "./kafka-setup/stop.sh",
+    "kafka:logs": "docker-compose --file ./kafka-setup/docker-compose.yml logs -f",
+    "kafka:build": "docker-compose --file ./kafka-setup/docker-compose.yml build",
+    "kafka:rick": "yarn kafka:stop && yarn kafka:build && yarn kafka:start && yarn kafka:generate-data && yarn start",
+    "kafka:producer": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-console-producer.sh --topic=test --broker-list=localhost:9092'",
+    "kafka:consumer": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-console-consumer.sh --topic=test --bootstrap-server=localhost:9092 --from-beginning'",
+    "kafka:generate-data": "while IFS= read line; do echo \"echo '$line' | kafka-console-producer.sh --topic=test --broker-list=localhost:9092 --property='parse.key=true' --property='key.separator=#' \" | docker exec -i kafkasetup_kafka_1 bash -; done< ./kafka-setup/test-data.txt"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^15.1.0",

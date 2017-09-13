@@ -1,0 +1,38 @@
+---
+version: "2"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: wurstmeister/kafka:0.10.2.1
+    ports:
+      - "9092:9092"
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_PORT: 9092
+      KAFKA_ADVERTISED_HOST_NAME: "kafka"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+      KAFKA_LISTENERS: "PLAINTEXT://:9092"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "test:1:1"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  kafka-rest:
+    image: nodefluent/kafka-rest
+    ports:
+      - 8082:8082
+    links:
+      - kafka
+      - zookeeper
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      DEBUG: "*,-express:*,-body-parser:*"

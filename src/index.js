@@ -1,3 +1,4 @@
+// @flow
 import 'rxjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,13 +16,12 @@ import rootEpic from './epics';
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
+// $FlowIgnore: Type too complex
 const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(epicMiddleware, logger),
 ));
-// import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>, document.getElementById('root'));
-// registerServiceWorker();

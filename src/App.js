@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import ReactJson from 'react-json-view';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
@@ -10,13 +11,22 @@ import NotificationSystem from 'react-notification-system';
 import { created } from './ducks/consumers';
 import { mounted } from './ducks/topics';
 
+import type { Consumers, Topics } from './types';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+type Props = {
+  created: void,
+  mounted: void,
+  topics: Topics,
+  consumers: Consumers,
+};
+
+class App extends Component<Props> {
   componentDidMount() {
-    this.notificationSystem = this.refs.notificationSystem;
-    this.props.mounted();
+    if (this.props.mounted) {
+      this.props.mounted();
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -36,10 +46,13 @@ class App extends Component {
     }
   }
 
+  refs: any;
+  notificationSystem: NotificationSystem;
+
   render() {
     return (
       <div className="App">
-        <NotificationSystem ref="notificationSystem" />
+        <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           Kafka Rest UI

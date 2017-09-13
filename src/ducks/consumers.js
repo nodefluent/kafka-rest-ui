@@ -1,18 +1,22 @@
+// @flow
+import type { ConsumerAction, Consumers } from '../types';
+
 export const CREATED = 'kafka-rest/consumers/created';
 export const DELETED = 'kafka-rest/consumers/deleted';
 export const GOT_RECORDS = 'kafka-rest/consumers/got-records';
 export const SUBSCRIBED = 'kafka-rest/consumers/subscribed';
 export const ERROR = 'kafka-rest/consumers/error';
 
-export default function reducer(state = { consumers: [], records: [], loading: false, error: '' }, action) {
+
+export default function reducer(state : Consumers = { list: {}, records: [], loading: false, error: '' }, action :ConsumerAction) {
   console.log('reducer consumers', action, state);
   switch (action.type) {
     case CREATED: {
       return {
         ...state,
         loading: true,
-        consumers: {
-          ...state.consumers,
+        list: {
+          ...state.list,
           [action.consumerId]: {
             topicName: action.topicName,
           },
@@ -21,9 +25,10 @@ export default function reducer(state = { consumers: [], records: [], loading: f
     }
 
     case DELETED: {
-      delete state.consumers[action.consumerId];
+      const newState = Object.assign({}, state);
+      delete newState.list[action.consumerId];
       return {
-        ...state,
+        ...newState,
         loading: false,
         records: action.records || [],
       };
@@ -42,7 +47,7 @@ export default function reducer(state = { consumers: [], records: [], loading: f
   }
 }
 
-export const created = (topicId, parent) => {
+export const created = (topicId :string, parent :string) => {
   const topicName = topicId.replace(`${parent}/`, '');
   const consumerId = `consumer_${topicName}_${new Date().toISOString()}`;
   return {
@@ -52,27 +57,27 @@ export const created = (topicId, parent) => {
   };
 };
 
-export const deleted = (consumerId, topicName, data) => ({
+export const deleted = (consumerId :string, topicName :string, data :any) => ({
   type: DELETED,
   consumerId,
   topicName,
   records: data,
 });
 
-export const gotRecords = (consumerId, topicName, payload) => ({
+export const gotRecords = (consumerId :string, topicName :string, payload :any) => ({
   type: GOT_RECORDS,
   consumerId,
   topicName,
   payload,
 });
 
-export const subscribed = (consumerId, topicName) => ({
+export const subscribed = (consumerId :string, topicName :string) => ({
   type: SUBSCRIBED,
   consumerId,
   topicName,
 });
 
-export const error = message => ({
+export const error = (message :Error) => ({
   type: ERROR,
   message,
 });

@@ -1,8 +1,11 @@
+// @flow
+import type { TopicAction, Topics } from '../types';
+
 export const MOUNTED = 'kafka-rest/topics/mounted';
 export const RECEIVED = 'kafka-rest/topics/received';
 export const ERROR = 'kafka-rest/topics/error';
 
-export default function reducer(state = { list: [], loading: false, error: '' }, action) {
+export default function reducer(state :Topics = { list: [], loading: false, error: '' }, action: TopicAction) {
   console.log('reducer', action, state);
   switch (action.type) {
     case RECEIVED: {
@@ -35,12 +38,12 @@ export const mounted = () => ({
   type: MOUNTED,
 });
 
-export const error = message => ({
+export const error = (message :Error) => ({
   type: ERROR,
   message,
 });
 
-export const received = payload => ({
+export const received = (payload: any) => ({
   type: RECEIVED,
   payload,
 });

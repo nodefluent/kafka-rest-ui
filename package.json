@@ -1,0 +1,33 @@
+{
+  "name": "kafka-rest-ui",
+  "version": "0.1.0",
+  "private": true,
+  "repository": "git@github.com:nodefluent/kafka-rest-ui.git",
+  "author": "nodefluent",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "eslint": "^4.6.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-icons-kit": "^1.0.7",
+    "react-json-view": "^1.12.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-scripts": "1.0.13",
+    "react-sidenav": "^2.1.2",
+    "react-tap-event-plugin": "^2.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0"
+  }
+}

@@ -82,7 +82,7 @@ class App extends Component {
           <div style={{
             background: '#2c3e50',
             color: '#FFF',
-            width: 250,
+            width: '20%',
             float: 'left',
           }}
           >

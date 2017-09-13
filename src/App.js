@@ -7,6 +7,10 @@ import { ic_list } from 'react-icons-kit/md/ic_list';
 import { ic_loop } from 'react-icons-kit/md/ic_loop';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// $FlowIgnore
+import 'react-tabs/style/react-tabs.css';
+
 
 import { created } from './ducks/consumers';
 import { mounted } from './ducks/topics';
@@ -55,7 +59,7 @@ class App extends Component<Props> {
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          Kafka Rest UI
+          <span style={{ 'font-size': '1.5em' }}>Kafka Rest UI</span>
         </div>
         <div style={{ height: '100%' }} >
           <div style={{
@@ -85,12 +89,33 @@ class App extends Component<Props> {
               }
             </SideNav>
           </div>
-          {this.props.consumers.loading && <Icon className="load" icon={ic_loop} /> }
-          {!this.props.consumers.loading &&
-            <div style={{ display: 'flex' }}>
-              <ReactJson src={this.props.consumers.records} name={null} displayDataTypes={false} />
-            </div>
-          }
+          <div><Tabs>
+            <TabList>
+              <Tab>Messages</Tab>
+              <Tab>Partitions</Tab>
+              <Tab>Configs</Tab>
+            </TabList>
+
+            <TabPanel>
+              {this.props.consumers.loading && <Icon className="load" icon={ic_loop} /> }
+              {!this.props.consumers.loading &&
+              <div style={{ display: 'flex' }}>
+                <ReactJson
+                  src={this.props.consumers.records}
+                  name={null}
+                  displayDataTypes={false}
+                />
+              </div>
+              }
+            </TabPanel>
+            <TabPanel>
+              <h2>Partitions</h2>
+            </TabPanel>
+            <TabPanel>
+              <h2>Configs</h2>
+            </TabPanel>
+          </Tabs>
+          </div>
         </div>
       </div>
     );

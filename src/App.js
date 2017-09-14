@@ -17,7 +17,7 @@ import 'react-table/react-table.css';
 
 import { created, clear as consumersClear } from './ducks/consumers';
 import { mounted, clear as topicsClear } from './ducks/topics';
-import { setTimeout } from './ducks/settings';
+import { setTimeout, setUrl } from './ducks/settings';
 
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
@@ -102,6 +102,9 @@ const columns = [
 
 class App extends Component<Props> {
   componentDidMount() {
+    if (process.env.REACT_APP_KAFKA_REST_URL) {
+      this.props.setUrl(process.env.REACT_APP_KAFKA_REST_URL);
+    }
     if (process.env.REACT_APP_TIMEOUT) {
       this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
     }
@@ -254,6 +257,6 @@ class App extends Component<Props> {
 
 const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 
-const mapDispatchToProps = { created, mounted, setTimeout, consumersClear, topicsClear };
+const mapDispatchToProps = { created, mounted, setTimeout, setUrl, consumersClear, topicsClear };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

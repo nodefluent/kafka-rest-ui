@@ -1,20 +1,21 @@
 // @flow
 import type { TopicAction, Topics } from '../types';
 
-export const MOUNTED = 'kafka-rest/topics/mounted';
-export const RECEIVED = 'kafka-rest/topics/received';
+export const MOUNTE = 'kafka-rest/topics/mounte';
+export const RECEIVE = 'kafka-rest/topics/receive';
 export const ERROR = 'kafka-rest/topics/error';
+export const CLEAR = 'kafka-rest/topics/clear';
 
 export default function reducer(state :Topics = { list: [], loading: false, error: '' }, action: TopicAction) {
   switch (action.type) {
-    case RECEIVED: {
+    case RECEIVE: {
       return {
         ...state,
         list: action.payload || [],
         loading: false,
       };
     }
-    case MOUNTED: {
+    case MOUNTE: {
       return {
         ...state,
         loading: true,
@@ -24,7 +25,14 @@ export default function reducer(state :Topics = { list: [], loading: false, erro
     case ERROR: {
       return {
         ...state,
-        error: JSON.stringify(action.message, null, 2),
+        error: action.message.message,
+      };
+    }
+
+    case CLEAR: {
+      return {
+        ...state,
+        error: null,
       };
     }
 
@@ -34,7 +42,7 @@ export default function reducer(state :Topics = { list: [], loading: false, erro
 }
 
 export const mounted = () => ({
-  type: MOUNTED,
+  type: MOUNTE,
 });
 
 export const error = (message :Error) => ({
@@ -42,7 +50,11 @@ export const error = (message :Error) => ({
   message,
 });
 
+export const clear = () => ({
+  type: CLEAR,
+});
+
 export const received = (payload: any) => ({
-  type: RECEIVED,
+  type: RECEIVE,
   payload,
 });

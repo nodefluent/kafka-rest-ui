@@ -16,8 +16,8 @@ import 'react-tabs/style/react-tabs.css';
 import 'react-table/react-table.css';
 
 
-import { created } from './ducks/consumers';
-import { mounted } from './ducks/topics';
+import { created, clear as consumersClear } from './ducks/consumers';
+import { mounted, clear as topicsClear } from './ducks/topics';
 import { setTimeout } from './ducks/settings';
 
 import type { Consumers, Topics, Settings } from './types';
@@ -114,7 +114,10 @@ class App extends Component<Props> {
         title: 'The problem with consumer occurred',
         message: newProps.consumers.error,
         level: 'error',
+        autoDismiss: 0,
+        position: 'br',
       });
+      this.props.consumersClear();
     }
     if (newProps.topics.error) {
       this.notificationSystem.addNotification({
@@ -122,6 +125,7 @@ class App extends Component<Props> {
         message: newProps.topics.error,
         level: 'error',
       });
+      this.props.topicsClear();
     }
   }
 
@@ -141,7 +145,7 @@ class App extends Component<Props> {
             <SideNav
               highlightBgColor="#6e8294"
               defaultSelected="topics"
-              onItemSelection={this.props.created}
+              onItemSelection={!this.props.consumers.loading ? this.props.created : () => {}}
             >
               {this.props.topics.list.map((topic, index) =>
                 (<Nav id={topic} key={`topic${index}`}>
@@ -209,25 +213,30 @@ class App extends Component<Props> {
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              <h2>Configs</h2>
+              <div className="NoContent">No topic configs</div>
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              <div>Url:
-                <input
-                  disabled
-                  value={this.props.settings.url}
-                  // onChange={this.props.setUrl}
-                  step="any"
-                />
-              </div>
-              <div>Timeout:
-                <input
-                  type="number"
-                  value={this.props.settings.timeout}
-                  onChange={this.props.setTimeout}
-                  step="any"
-                />
-              </div>
+              <table><tbody>
+                <tr><td><div className="FieldLabel">Kafka rest url:</div></td>
+                  <td><input
+                    type="url"
+                    disabled
+                    value={this.props.settings.url}
+                    // onChange={this.props.setUrl}
+                    step="any"
+                    className="InputField"
+                  /></td></tr>
+                <tr><td><div className="FieldLabel">API timeout:</div></td>
+                  <td><input
+                    type="number"
+                    value={this.props.settings.timeout}
+                    onChange={this.props.setTimeout}
+                    step="any"
+                    min="1000"
+                    max="120000"
+                    className="InputField"
+                  /></td></tr>
+              </tbody></table>
             </TabPanel>
           </Tabs>
         </div>
@@ -239,6 +248,6 @@ class App extends Component<Props> {
 
 const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 
-const mapDispatchToProps = { created, mounted, setTimeout };
+const mapDispatchToProps = { created, mounted, setTimeout, consumersClear, topicsClear };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

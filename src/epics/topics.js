@@ -1,9 +1,9 @@
 // @flow
 import { Observable } from 'rxjs';
-import { MOUNTED, received, error } from '../ducks/topics';
+import { MOUNTE, received, error } from '../ducks/topics';
 
 export function getTopics(action$ :any, store :any, { api } :any) {
-  return action$.ofType(MOUNTED)
+  return action$.ofType(MOUNTE)
     .switchMap(() => {
       const state = store.getState();
       return api.getTopics(state.settings.url, state.settings.timeout);
@@ -13,7 +13,7 @@ export function getTopics(action$ :any, store :any, { api } :any) {
 }
 
 export function getTopic(action$ :any, store :any, { api } :any) {
-  return action$.ofType(MOUNTED)
+  return action$.ofType(MOUNTE)
     .switchMap(() => {
       const state = store.getState();
       return api.getTopic(state.settings.url, state.settings.timeout);

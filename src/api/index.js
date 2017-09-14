@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getInstance = (url :string = 'http://localhost:8082/', timeout :number = 2000) =>
   axios.create({
     baseURL: url,
-    timeout: (timeout || 2000 + 200),
+    timeout: ((timeout || 2000) + 1000),
     headers: { 'content-type': 'application/json', 'cache-control': 'no-cache' },
   });
 

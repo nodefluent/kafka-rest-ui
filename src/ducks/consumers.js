@@ -9,7 +9,6 @@ export const ERROR = 'kafka-rest/consumers/error';
 
 
 export default function reducer(state : Consumers = { list: {}, records: [], loading: false, progress: '', error: '' }, action :ConsumerAction) {
-  console.log('reducer consumers', action, state);
   switch (action.type) {
     case CREATED: {
       return {

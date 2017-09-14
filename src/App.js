@@ -199,6 +199,7 @@ class App extends Component<Props> {
                 style={{ height: '100%' }}
                 data={data}
                 columns={columns}
+                defaultPageSize={25}
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>

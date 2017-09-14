@@ -61,20 +61,13 @@ class App extends Component<Props> {
           <img src={logo} className="App-logo" alt="logo" />
           <span style={{ 'font-size': '1.5em' }}>Kafka Rest UI</span>
         </div>
-        <div style={{ height: '100%' }} >
-          <div style={{
-            background: '#2c3e50',
-            color: '#FFF',
-            width: '20%',
-            float: 'left',
-          }}
-          >
+        <div className="FullHeight">
+          <div className="SideNav">
             <SideNav
-              highlightBgColor="#7d7d7d"
+              highlightBgColor="#6e8294"
               defaultSelected="topics"
               onItemSelection={this.props.created}
             >
-              {console.log('render', this)}
               {this.props.topics.list.map((topic, index) =>
                 (<Nav id={topic} key={`topic${index}`}>
                   <NavIcon><Icon size={20} icon={ic_list} /></NavIcon>

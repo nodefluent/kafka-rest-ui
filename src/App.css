@@ -1,8 +1,24 @@
 html, body {
   height: 100%;
   margin: 0;
+  min-height: 100%;
   padding: 0;
 }
+
+#root {
+  height: 100%;
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+}
+
+.App {
+  height: -webkit-calc(100% - 42px);
+  margin: 0;
+  min-height: -webkit-calc(100% - 42px);
+  padding: 0;
+}
+
 .App-logo {
   height: 32px;
 }
@@ -11,6 +27,7 @@ html, body {
   background-color: #2c3e50;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: #FFF;
+  height: 42px;
 }
 
 .App-intro {
@@ -34,7 +51,6 @@ html, body {
   color: #FFF;
   float: left;
   height: 100%;
-  min-height: 600px;
   width: 20%;
 }
 

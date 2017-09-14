@@ -8,7 +8,7 @@ WORKDIR /
 COPY ./Caddyfile /caddy/Caddyfile
 COPY ./entrypoint.sh /entrypoint.sh
 
-RUN apk add --no-cache libcap bash curl ca-certificates wget git \
+RUN apk add --no-cache libcap bash curl ca-certificates git \
     \
     && mkdir -p /caddy \
     && curl --silent --show-error --fail --location \

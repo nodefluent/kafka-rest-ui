@@ -36,3 +36,18 @@ services:
       - zookeeper
     environment:
       DEBUG: "*"
+
+  kafka-rest-ui:
+    build:
+      context: ../docker
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    links:
+      - kafka-rest
+    depends_on:
+      - kafka-rest
+    environment:
+      REACT_APP_KAFKA_REST_URL: "http://kafka-rest:8082/"
+      REACT_APP_TIMEOUT: "3000"
+      PROXY: "yes"

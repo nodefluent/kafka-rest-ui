@@ -4,9 +4,11 @@ import ReactJson from 'react-json-view';
 import JSONTree from 'react-json-tree';
 import ReactTable from 'react-table';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
-import Icon from 'react-icons-kit';
+import Icon, { horizontalCenter } from 'react-icons-kit';
 import { ic_list } from 'react-icons-kit/md/ic_list';
 import { ic_loop } from 'react-icons-kit/md/ic_loop';
+import { ic_fast_forward } from 'react-icons-kit/md/ic_fast_forward';
+import { ic_fast_rewind } from 'react-icons-kit/md/ic_fast_rewind';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -110,21 +112,29 @@ class App extends Component<Props> {
             </TabList>
 
             <TabPanel style={{ height: '100%' }}>
-              {this.props.consumers.loading && <div className="Progress">
-                <Icon className="load" icon={ic_loop} />
-                {this.props.consumers.progress}
-              </div> }
-              {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
               <div className="Messages">
-                <ReactJson
-                  src={this.props.consumers.records}
-                  name={null}
-                  displayDataTypes={false}
-                  iconStyle={'circle'}
-                />
-              </div>}
+                {this.props.consumers.loading && <div className="Progress">
+                  <Icon className="load" icon={ic_loop} />
+                  {this.props.consumers.progress}
+                </div> }
+                {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
+                  <ReactJson
+                    src={this.props.consumers.records}
+                    name={null}
+                    displayDataTypes={false}
+                    iconStyle={'circle'}
+                  />}
+              </div>
               {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&
                 (<div className="NoContent">No records found</div>)}
+              <div className="Navigation">
+                <div className="NavigationLeft">
+                  <button className="NaviagationButton"><Icon icon={ic_fast_rewind} /></button>
+                </div>
+                <div className="NavigationRight">
+                  <button className="NaviagationButton"><Icon icon={ic_fast_forward} /></button>
+                </div>
+              </div>
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               {this.props.consumers.loading && <div className="Progress">

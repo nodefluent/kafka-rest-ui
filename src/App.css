@@ -65,13 +65,17 @@ html, body {
 }
 
 .Progress {
+  color: rgba(0, 0, 0, 0.5);
   font-style: italic;
+  left: 50%;
   padding: 1em;
+  position: absolute;
   text-align: center;
+  top: 50%;
 }
 
 .Messages {
-  height:100%;
+  height: -webkit-calc(100% - 44px);
   overflow: auto;
 }
 
@@ -93,6 +97,52 @@ html, body {
   float: right;
   font-size: 1em;
   line-height: 1em;
+}
+
+.Navigation {
+  /*background: #4f6375;*/
+  bottom: 0;
+  height: 42px;
+  left: 20%;
+  width: 100%;
+  z-index: 1;
+  flex-wrap: wrap;
+  -webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px 0 rgba(0,0,0,0.1);
+  border-top: 2px solid rgba(0,0,0,0.1);
+}
+
+.NavigationLeft {
+  float: left;
+  height: 100%;
+}
+
+.NavigationRight {
+  float: right;
+  height: 100%;
+}
+button.NavigationRight {
+  margin-right: 0;
+}
+
+.NaviagationButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 3px;
+  padding: 6px;
+  font-size: 1em;
+  color: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.1);
+  -webkit-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
+  cursor: pointer;
+  outline: none;
+  margin: 6px;
 }
 
 @keyframes App-logo-spin {

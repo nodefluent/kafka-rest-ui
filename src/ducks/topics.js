@@ -1,31 +1,55 @@
 // @flow
 import type { TopicAction, Topics } from '../types';
 
-export const MOUNTE = 'kafka-rest/topics/mounte';
-export const RECEIVE = 'kafka-rest/topics/receive';
+export const GET_TOPIC = 'kafka-rest/topics/get-topic-info';
+export const GET_TOPICS = 'kafka-rest/topics/get-topics';
+export const RECEIVED = 'kafka-rest/topics/received';
+export const TOPIC_RECEIVED = 'kafka-rest/topics/topic-received';
 export const ERROR = 'kafka-rest/topics/error';
 export const CLEAR = 'kafka-rest/topics/clear';
 
-export default function reducer(state :Topics = { list: [], loading: false, error: '' }, action: TopicAction) {
+export default function reducer(
+  state :Topics = { list: [], topic: { name: '', partiotions: [] }, loading: false, error: '' },
+  action: TopicAction) {
   switch (action.type) {
-    case RECEIVE: {
+    case RECEIVED: {
       return {
         ...state,
         list: action.payload || [],
         loading: false,
       };
     }
-    case MOUNTE: {
+    case GET_TOPICS: {
       return {
         ...state,
         loading: true,
       };
     }
 
+    case GET_TOPIC: {
+      return {
+        ...state,
+        topic: {
+          name: action.topic,
+          partitions: [],
+        },
+      };
+    }
+
+    case TOPIC_RECEIVED: {
+      return {
+        ...state,
+        topic: {
+          ...state.topic,
+          partitions: action.payload.partitions || [],
+        },
+      };
+    }
+
     case ERROR: {
       return {
         ...state,
-        error: action.message.message,
+        error: action.message.toString() + action.message.stack.toString(),
       };
     }
 
@@ -41,8 +65,13 @@ export default function reducer(state :Topics = { list: [], loading: false, erro
   }
 }
 
-export const mounted = () => ({
-  type: MOUNTE,
+export const getTopics = () => ({
+  type: GET_TOPICS,
+});
+
+export const getTopic = (topic :string) => ({
+  type: GET_TOPIC,
+  topic,
 });
 
 export const error = (message :Error) => ({
@@ -55,6 +84,11 @@ export const clear = () => ({
 });
 
 export const received = (payload: any) => ({
-  type: RECEIVE,
+  type: RECEIVED,
+  payload,
+});
+
+export const topicReceived = (payload: any) => ({
+  type: TOPIC_RECEIVED,
   payload,
 });

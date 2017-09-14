@@ -5,12 +5,13 @@ import {
   DELETE,
   SUBSCRIBE,
   GET_RECORDS,
-  deleted,
+  deleteConsumer as deleteConsumerAction,
   gotRecords,
   updateRecords,
-  subscribed,
+  subscribe,
   error,
 } from '../ducks/consumers';
+import { getTopic } from '../ducks/topics';
 import type { ConsumerAction } from '../types';
 
 export function createConsumer(action$ :any, store :any, { api } :any) :Observable<ConsumerAction> {
@@ -18,8 +19,9 @@ export function createConsumer(action$ :any, store :any, { api } :any) :Observab
     .filter(() => !store.getState().loading)
     .switchMap((action) => {
       const state = store.getState();
-      return api.createConsumer(state.settings.url, state.settings.timeout, action.consumerId, action.offset)
-        .then(() => subscribed(action.consumerId, action.topicName));
+      return Observable.fromPromise(
+        api.createConsumer(state.settings.url, state.settings.timeout, action.consumerId, action.offset))
+        .switchMap(() => Observable.of(getTopic(action.topicName), subscribe(action.consumerId, action.topicName)));
     })
     .catch(err => Observable.of(error(err)));
 }
@@ -50,7 +52,8 @@ export function getRecords(action$ :any, store :any, { api } :any) :Observable<C
       const state = store.getState();
       return Observable.fromPromise(
         api.getRecords(state.settings.url, state.settings.timeout, action.consumerId, action.topicName))
-        .switchMap(({ data }) => Observable.of(updateRecords(data), deleted(action.consumerId, action.topicName)));
+        .switchMap(({ data }) =>
+          Observable.of(updateRecords(data), deleteConsumerAction(action.consumerId, action.topicName)));
     })
     .catch(err => Observable.of(error(err)));
 }

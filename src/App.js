@@ -15,8 +15,8 @@ import 'react-tabs/style/react-tabs.css';
 // $FlowIgnore
 import 'react-table/react-table.css';
 
-import { created, clear as consumersClear } from './ducks/consumers';
-import { mounted, clear as topicsClear } from './ducks/topics';
+import { createConsumer, clear as consumersClear } from './ducks/consumers';
+import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTimeout, setUrl } from './ducks/settings';
 
 import type { Consumers, Topics, Settings } from './types';
@@ -24,14 +24,13 @@ import logo from './logo.svg';
 import './App.css';
 
 type Props = {
-  created: void,
-  mounted: void,
+  createConsumer: void,
+  getTopics: void,
   setTimeout: void,
   topics: Topics,
   consumers: Consumers,
   settings: Settings
 };
-
 
 const colorTheme = {
   scheme: 'google',
@@ -52,29 +51,6 @@ const colorTheme = {
   base0E: '#A36AC7',
   base0F: '#3971ED',
 };
-const data = [
-  {
-    partition: 0,
-    leader: 0,
-    replicas: [
-      {
-        broker: 1,
-        leader: true,
-        in_sync: true,
-      },
-      {
-        broker: 2,
-        leader: false,
-        in_sync: true,
-      },
-      {
-        broker: 3,
-        leader: false,
-        in_sync: false,
-      },
-    ],
-  },
-];
 
 const columns = [
   {
@@ -82,21 +58,19 @@ const columns = [
     accessor: 'partition',
   },
   {
-    Header: 'Replica',
-    accessor: 'leader',
-  },
-  {
-    id: 'replicaBroker',
-    Header: 'Replica Broker',
+    id: 'broker',
+    Header: 'Broker',
     accessor: 'broker',
   },
   {
+    id: 'leader',
     Header: 'Is Leader',
-    accessor: 'replicas.leader',
+    accessor: d => d.leader.toString(),
   },
   {
-    Header: 'Is in-sync',
-    accessor: 'replicas.in_sync',
+    id: 'in_sync',
+    Header: 'Is in sync',
+    accessor: d => d.in_sync.toString(),
   },
 ];
 
@@ -108,8 +82,8 @@ class App extends Component<Props> {
     if (process.env.REACT_APP_TIMEOUT) {
       this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
     }
-    if (this.props.mounted) {
-      this.props.mounted();
+    if (this.props.getTopics) {
+      this.props.getTopics();
     }
   }
 
@@ -120,7 +94,7 @@ class App extends Component<Props> {
         message: newProps.consumers.error,
         level: 'error',
         autoDismiss: 0,
-        position: 'br',
+        // position: 'br',
       });
       this.props.consumersClear();
     }
@@ -129,6 +103,8 @@ class App extends Component<Props> {
         title: 'The problem with topic occurred',
         message: newProps.topics.error,
         level: 'error',
+        autoDismiss: 0,
+        // position: 'br',
       });
       this.props.topicsClear();
     }
@@ -150,7 +126,7 @@ class App extends Component<Props> {
             <SideNav
               highlightBgColor="#6e8294"
               defaultSelected="topics"
-              onItemSelection={!this.props.consumers.loading ? this.props.created : () => {}}
+              onItemSelection={!this.props.consumers.loading ? this.props.createConsumer : () => {}}
             >
               {this.props.topics.list.map((topic, index) =>
                 (<Nav id={topic} key={`topic${index}`}>
@@ -211,7 +187,20 @@ class App extends Component<Props> {
             <TabPanel style={{ height: '100%' }}>
               <ReactTable
                 style={{ height: '100%' }}
-                data={data}
+                data={() => {
+                  if (!this.props.topics.topic.partitions || this.props.topics.topic.partitions.length === 0) {
+                    return [{
+                      partition: '',
+                      broker: '',
+                      leader: '',
+                      in_sync: '',
+                    }];
+                  }
+                  const formatedData = [];
+                  this.props.topics.topic.partitions.forEach(d =>
+                    d.replicas.forEach(r => formatedData.push({ ...r, partition: d.partition })));
+                  return formatedData;
+                }}
                 columns={columns}
                 defaultPageSize={25}
               />
@@ -256,6 +245,6 @@ class App extends Component<Props> {
 
 const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 
-const mapDispatchToProps = { created, mounted, setTimeout, setUrl, consumersClear, topicsClear };
+const mapDispatchToProps = { createConsumer, getTopics, setTimeout, setUrl, consumersClear, topicsClear };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

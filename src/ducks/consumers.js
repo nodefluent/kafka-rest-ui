@@ -63,7 +63,7 @@ export default function reducer(
         ...state,
         loading: false,
         progress: '',
-        error: action.message.message,
+        error: action.message.toString() + action.message.stack.toString(),
       };
     }
 
@@ -80,7 +80,7 @@ export default function reducer(
   }
 }
 
-export const created = (topicId :string, parent :string) => {
+export const createConsumer = (topicId :string, parent :string) => {
   const topicName = topicId.replace(`${parent}/`, '');
   const consumerId = `consumer_${topicName}_${new Date().toISOString()}`;
   return {
@@ -90,7 +90,7 @@ export const created = (topicId :string, parent :string) => {
   };
 };
 
-export const deleted = (consumerId :string, topicName :string) => ({
+export const deleteConsumer = (consumerId :string, topicName :string) => ({
   type: DELETE,
   consumerId,
   topicName,
@@ -108,7 +108,7 @@ export const gotRecords = (consumerId :string, topicName :string, payload :any) 
   payload,
 });
 
-export const subscribed = (consumerId :string, topicName :string) => ({
+export const subscribe = (consumerId :string, topicName :string) => ({
   type: SUBSCRIBE,
   consumerId,
   topicName,

@@ -27,7 +27,7 @@ export default function reducer(
     case ERROR: {
       return {
         ...state,
-        error: action.message.message,
+        error: action.message.toString() + action.message.stack.toString(),
       };
     }
 

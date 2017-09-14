@@ -19,6 +19,10 @@ export type ConsumerAction = {
 
 export type Topics = {
   list: Array<any>,
+  topic: {
+    name: string,
+    partitions?: Array<Object>,
+  },
   loading: boolean,
   error?: string,
 }

@@ -160,7 +160,6 @@ class App extends Component<Props> {
               }
               {this.props.topics.list.length === 0 && (
                 <Nav key={'__notopic'}>
-                  <NavIcon><Icon size={20} icon={ic_list} /></NavIcon>
                   <NavText>No topic found</NavText>
                 </Nav>)
               }

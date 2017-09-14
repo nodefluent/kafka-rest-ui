@@ -1,0 +1,29 @@
+FROM node:alpine
+MAINTAINER nodefluent
+
+ENV CADDY_VERSION=0.10.9
+ENV KAFKA_REST_UI_VERSION=0.1.0
+
+WORKDIR /
+COPY ./Caddyfile /caddy/Caddyfile
+COPY ./entrypoint.sh /entrypoint.sh
+
+RUN apk add --no-cache libcap bash curl ca-certificates wget git \
+    \
+    && mkdir -p /caddy \
+    && curl --silent --show-error --fail --location \
+      --header "Accept: application/tar+gzip, application/x-gzip, application/octet-stream" -o - \
+      "https://caddyserver.com/download/linux/amd64?plugins=http.ipfilter,http.cors" \
+    | tar --no-same-owner -C /caddy -xz caddy \
+    && setcap 'cap_net_bind_service=+ep' /caddy/caddy \
+    && /caddy/caddy -version \
+    \
+    && git clone https://github.com/nodefluent/kafka-rest-ui.git \
+    && cd kafka-rest-ui \
+    && yarn install \
+    \
+    && chmod +x /entrypoint.sh
+
+WORKDIR /kafka-rest-ui
+EXPOSE ${HTTP_PORT:-8000}
+ENTRYPOINT ["/entrypoint.sh"]

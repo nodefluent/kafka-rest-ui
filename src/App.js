@@ -15,7 +15,6 @@ import 'react-tabs/style/react-tabs.css';
 // $FlowIgnore
 import 'react-table/react-table.css';
 
-
 import { created, clear as consumersClear } from './ducks/consumers';
 import { mounted, clear as topicsClear } from './ducks/topics';
 import { setTimeout } from './ducks/settings';
@@ -103,6 +102,9 @@ const columns = [
 
 class App extends Component<Props> {
   componentDidMount() {
+    if (process.env.REACT_APP_TIMEOUT) {
+      this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
+    }
     if (this.props.mounted) {
       this.props.mounted();
     }
@@ -230,7 +232,11 @@ class App extends Component<Props> {
                   <td><input
                     type="number"
                     value={this.props.settings.timeout}
-                    onChange={this.props.setTimeout}
+                    onChange={(event) => {
+                      if (event.target.validity.valid) {
+                        this.props.setTimeout(event.target.value);
+                      }
+                    }}
                     step="any"
                     min="1000"
                     max="120000"

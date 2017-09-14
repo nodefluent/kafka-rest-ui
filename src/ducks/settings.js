@@ -35,17 +35,10 @@ export default function reducer(
   }
 }
 
-export const setTimeout = (event :any) => {
-  let timeout = 2000;
-  if (event.target.validity.valid) {
-    timeout = event.target.value;
-  }
-
-  return {
-    type: SET_TIMEOUT,
-    timeout,
-  };
-};
+export const setTimeout = (timeout :number) => ({
+  type: SET_TIMEOUT,
+  timeout,
+});
 
 export const clear = () => ({
   type: CLEAR,

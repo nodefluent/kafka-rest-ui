@@ -2,16 +2,22 @@
 import { Observable } from 'rxjs';
 import { MOUNTED, received, error } from '../ducks/topics';
 
-export function getTopics(action$ :any, _ :any, { api } :any) {
+export function getTopics(action$ :any, store :any, { api } :any) {
   return action$.ofType(MOUNTED)
-    .switchMap(api.getTopics)
+    .switchMap(() => {
+      const state = store.getState();
+      return api.getTopics(state.settings.url, state.settings.timeout);
+    })
     .map(({ data }) => received(data))
     .catch(err => Observable.of(error(err)));
 }
 
-export function getTopic(action$ :any, _ :any, { api } :any) {
+export function getTopic(action$ :any, store :any, { api } :any) {
   return action$.ofType(MOUNTED)
-    .switchMap(api.getTopic)
+    .switchMap(() => {
+      const state = store.getState();
+      return api.getTopic(state.settings.url, state.settings.timeout);
+    })
     .map(({ data }) => received(data))
     .catch(err => Observable.of(error(err)));
 }

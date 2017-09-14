@@ -5,6 +5,7 @@ export const CREATED = 'kafka-rest/consumers/created';
 export const DELETED = 'kafka-rest/consumers/deleted';
 export const GOT_RECORDS = 'kafka-rest/consumers/got-records';
 export const SUBSCRIBED = 'kafka-rest/consumers/subscribed';
+export const TIMEOUT_SET = 'kafka-rest/consumers/timeout-set';
 export const ERROR = 'kafka-rest/consumers/error';
 
 

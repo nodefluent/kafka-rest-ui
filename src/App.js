@@ -18,16 +18,19 @@ import 'react-table/react-table.css';
 
 import { created } from './ducks/consumers';
 import { mounted } from './ducks/topics';
+import { setTimeout } from './ducks/settings';
 
-import type { Consumers, Topics } from './types';
+import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
 import './App.css';
 
 type Props = {
   created: void,
   mounted: void,
+  setTimeout: void,
   topics: Topics,
   consumers: Consumers,
+  settings: Settings
 };
 
 
@@ -131,7 +134,7 @@ class App extends Component<Props> {
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <span style={{ fontSize: '1.5em' }}>Kafka Rest UI</span>
+          <span style={{ fontSize: '1.5em' }}>Kafka REST UI</span>
         </div>
         <div className="FullHeight">
           <div className="SideNav">
@@ -160,6 +163,7 @@ class App extends Component<Props> {
               <Tab>Messages (another view)</Tab>
               <Tab>Partitions</Tab>
               <Tab>Configs</Tab>
+              <Tab style={{ float: 'right' }}>Settings</Tab>
             </TabList>
 
             <TabPanel style={{ height: '100%' }}>
@@ -176,7 +180,8 @@ class App extends Component<Props> {
                   iconStyle={'circle'}
                 />
               </div>}
-              {!this.props.consumers.loading && this.props.consumers.records.length === 0 && (<div className="NoContent">No records</div>)}
+              {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&
+                (<div className="NoContent">No records</div>)}
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               {this.props.consumers.loading && <div className="Progress">
@@ -192,7 +197,8 @@ class App extends Component<Props> {
                   shouldExpandNode={() => true}
                 />
               </div>}
-              {!this.props.consumers.loading && this.props.consumers.records.length === 0 && (<div className="NoContent">No records</div>)}
+              {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&
+                (<div className="NoContent">No records</div>)}
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               <ReactTable
@@ -205,6 +211,24 @@ class App extends Component<Props> {
             <TabPanel style={{ height: '100%' }}>
               <h2>Configs</h2>
             </TabPanel>
+            <TabPanel style={{ height: '100%' }}>
+              <div>Url:
+                <input
+                  disabled
+                  value={this.props.settings.url}
+                  // onChange={this.props.setUrl}
+                  step="any"
+                />
+              </div>
+              <div>Timeout:
+                <input
+                  type="number"
+                  value={this.props.settings.timeout}
+                  onChange={this.props.setTimeout}
+                  step="any"
+                />
+              </div>
+            </TabPanel>
           </Tabs>
         </div>
       </div>
@@ -213,8 +237,8 @@ class App extends Component<Props> {
 }
 
 
-const mapStateToProps = ({ consumers, topics }) => ({ consumers, topics });
+const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 
-const mapDispatchToProps = { created, mounted };
+const mapDispatchToProps = { created, mounted, setTimeout };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

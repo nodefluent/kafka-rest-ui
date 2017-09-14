@@ -5,7 +5,8 @@ export type Consumers = {
   records: Array<any>,
   loading: boolean,
   error?: string,
-  progress?: string;
+  progress?: string,
+  timeout?: number,
 }
 
 export type ConsumerAction = {
@@ -13,6 +14,7 @@ export type ConsumerAction = {
   message?: ?Error,
   consumerId?: string,
   topicName?: string,
+  timeout?: number,
 }
 
 export type Topics = {
@@ -24,4 +26,16 @@ export type Topics = {
 export type TopicAction = {
   type: string,
   message?: Error,
+}
+
+export type Settings = {
+  url: string,
+  timeout: number,
+  error?: string,
+}
+
+export type SettingAction = {
+  type: string,
+  message?: Error,
+  timeout?: number,
 }

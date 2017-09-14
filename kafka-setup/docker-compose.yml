@@ -35,4 +35,4 @@ services:
       - kafka
       - zookeeper
     environment:
-      DEBUG: "*,-express:*,-body-parser:*"
+      DEBUG: "*"

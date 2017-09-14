@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import ReactJson from 'react-json-view';
 import JSONTree from 'react-json-tree';
+import ReactTable from 'react-table';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
 import Icon from 'react-icons-kit';
 import { ic_list } from 'react-icons-kit/md/ic_list';
@@ -11,6 +12,8 @@ import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 // $FlowIgnore
 import 'react-tabs/style/react-tabs.css';
+// $FlowIgnore
+import 'react-table/react-table.css';
 
 
 import { created } from './ducks/consumers';
@@ -47,6 +50,53 @@ const colorTheme = {
   base0E: '#A36AC7',
   base0F: '#3971ED',
 };
+const data = [
+  {
+    partition: 0,
+    leader: 0,
+    replicas: [
+      {
+        broker: 1,
+        leader: true,
+        in_sync: true,
+      },
+      {
+        broker: 2,
+        leader: false,
+        in_sync: true,
+      },
+      {
+        broker: 3,
+        leader: false,
+        in_sync: false,
+      },
+    ],
+  },
+];
+
+const columns = [
+  {
+    Header: 'Partition',
+    accessor: 'partition',
+  },
+  {
+    Header: 'Replica',
+    accessor: 'leader',
+  },
+  {
+    id: 'replicaBroker',
+    Header: 'Replica Broker',
+    accessor: 'broker',
+  },
+  {
+    Header: 'Is Leader',
+    accessor: 'replicas.leader',
+  },
+  {
+    Header: 'Is in-sync',
+    accessor: 'replicas.in_sync',
+  },
+];
 
 class App extends Component<Props> {
   componentDidMount() {
@@ -81,7 +131,7 @@ class App extends Component<Props> {
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <span style={{ 'font-size': '1.5em' }}>Kafka Rest UI</span>
+          <span style={{ fontSize: '1.5em' }}>Kafka Rest UI</span>
         </div>
         <div className="FullHeight">
           <div className="SideNav">
@@ -144,10 +194,14 @@ class App extends Component<Props> {
               </div>}
               {!this.props.consumers.loading && this.props.consumers.records.length === 0 && (<div className="NoContent">No records</div>)}
             </TabPanel>
-            <TabPanel>
-              <h2>Partiotions</h2>
+            <TabPanel style={{ height: '100%' }}>
+              <ReactTable
+                style={{ height: '100%' }}
+                data={data}
+                columns={columns}
+              />
             </TabPanel>
-            <TabPanel>
+            <TabPanel style={{ height: '100%' }}>
               <h2>Configs</h2>
             </TabPanel>
           </Tabs>

@@ -19,6 +19,7 @@
     "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.13",
     "react-sidenav": "^2.1.2",
+    "react-table": "^6.5.3",
     "react-tabs": "^2.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",

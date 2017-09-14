@@ -95,7 +95,7 @@ class App extends Component<Props> {
               }
               {this.props.topics.list.length === 0 && (
                 <Nav key={'__notopic'}>
-                  <NavText>No topic found</NavText>
+                  <NavText>No topics found</NavText>
                 </Nav>)
               }
             </SideNav>
@@ -124,7 +124,7 @@ class App extends Component<Props> {
                 />
               </div>}
               {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&
-                (<div className="NoContent">No records</div>)}
+                (<div className="NoContent">No records found</div>)}
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               {this.props.consumers.loading && <div className="Progress">
@@ -141,7 +141,7 @@ class App extends Component<Props> {
                 />
               </div>}
               {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&
-                (<div className="NoContent">No records</div>)}
+                (<div className="NoContent">No records found</div>)}
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               <ReactTable
@@ -152,7 +152,7 @@ class App extends Component<Props> {
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              <div className="NoContent">No topic configs</div>
+              <div className="NoContent">No topic configuration found</div>
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               <table><tbody>

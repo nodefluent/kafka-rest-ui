@@ -90,8 +90,11 @@ class App extends Component<Props> {
             </TabList>
 
             <TabPanel>
-              {this.props.consumers.loading && <Icon className="load" icon={ic_loop} /> }
-              {!this.props.consumers.loading &&
+              {this.props.consumers.loading && <div className="Progress">
+                <Icon className="load" icon={ic_loop} />
+                {this.props.consumers.progress}
+              </div> }
+              {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
               <div style={{ display: 'flex' }}>
                 <ReactJson
                   src={this.props.consumers.records}
@@ -100,6 +103,7 @@ class App extends Component<Props> {
                 />
               </div>
               }
+              {!this.props.consumers.loading && this.props.consumers.records.length === 0 && (<div className="NoContent">No records</div>)}
             </TabPanel>
             <TabPanel>
               <h2>Partitions</h2>

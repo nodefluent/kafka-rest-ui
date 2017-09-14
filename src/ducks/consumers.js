@@ -8,13 +8,14 @@ export const SUBSCRIBED = 'kafka-rest/consumers/subscribed';
 export const ERROR = 'kafka-rest/consumers/error';
 
 
-export default function reducer(state : Consumers = { list: {}, records: [], loading: false, error: '' }, action :ConsumerAction) {
+export default function reducer(state : Consumers = { list: {}, records: [], loading: false, progress: '', error: '' }, action :ConsumerAction) {
   console.log('reducer consumers', action, state);
   switch (action.type) {
     case CREATED: {
       return {
         ...state,
         loading: true,
+        progress: 'Create consumer...',
         list: {
           ...state.list,
           [action.consumerId]: {
@@ -30,7 +31,22 @@ export default function reducer(state : Consumers = { list: {}, records: [], loa
       return {
         ...newState,
         loading: false,
+        progress: 'Delete consumer...',
         records: action.records || [],
+      };
+    }
+
+    case GOT_RECORDS: {
+      return {
+        ...state,
+        progress: 'Getting records...',
+      };
+    }
+
+    case SUBSCRIBED: {
+      return {
+        ...state,
+        progress: `Subscribe to topic ${action.topicName || ''} ...`,
       };
     }
 
@@ -38,6 +54,7 @@ export default function reducer(state : Consumers = { list: {}, records: [], loa
       return {
         ...state,
         loading: false,
+        progress: '',
         error: JSON.stringify(action.message, null, 2),
       };
     }

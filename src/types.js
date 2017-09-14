@@ -5,6 +5,7 @@ export type Consumers = {
   records: Array<any>,
   loading: boolean,
   error?: string,
+  progress?: string;
 }
 
 export type ConsumerAction = {

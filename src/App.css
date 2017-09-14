@@ -55,9 +55,13 @@ html, body {
 }
 
 .NoContent {
+  color: rgba(0, 0, 0, 0.5);
   font-style: italic;
+  left: 50%;
   padding: 1em;
+  position: absolute;
   text-align: center;
+  top: 50%;
 }
 
 .Progress {

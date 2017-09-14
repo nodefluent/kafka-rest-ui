@@ -22,6 +22,13 @@ export function getTopic(action$ :any, store :any, { api } :any) {
       const state = store.getState();
       return api.getTopic(state.settings.url, state.settings.timeout, action.topic);
     })
-    .map(({ data }) => topicReceived(data))
+    .switchMap(({ data }) => {
+      if (!data.partitions || data.partitions.length === 0) {
+        return [];
+      }
+      const formatedData = [];
+      data.partitions.forEach(d => d.replicas.forEach(r => formatedData.push({ ...r, partition: d.partition })));
+      return Observable.of(topicReceived(formatedData));
+    })
     .catch(err => Observable.of(error(err)));
 }

@@ -19,6 +19,7 @@ import { createConsumer, clear as consumersClear } from './ducks/consumers';
 import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTimeout, setUrl } from './ducks/settings';
 
+import { colorTheme, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
 import './App.css';
@@ -31,48 +32,6 @@ type Props = {
   consumers: Consumers,
   settings: Settings
 };
-
-const colorTheme = {
-  scheme: 'google',
-  base00: '#1d1f21',
-  base01: '#282a2e',
-  base02: '#373b41',
-  base03: '#969896',
-  base04: '#b4b7b4',
-  base05: '#c5c8c6',
-  base06: '#e0e0e0',
-  base07: '#ffffff',
-  base08: '#CC342B',
-  base09: '#F96A38',
-  base0A: '#FBA922',
-  base0B: '#198844',
-  base0C: '#3971ED',
-  base0D: '#3971ED',
-  base0E: '#A36AC7',
-  base0F: '#3971ED',
-};
-
-const columns = [
-  {
-    Header: 'Partition',
-    accessor: 'partition',
-  },
-  {
-    id: 'broker',
-    Header: 'Broker',
-    accessor: 'broker',
-  },
-  {
-    id: 'leader',
-    Header: 'Is Leader',
-    accessor: d => d.leader.toString(),
-  },
-  {
-    id: 'in_sync',
-    Header: 'Is in sync',
-    accessor: d => d.in_sync.toString(),
-  },
-];
 
 class App extends Component<Props> {
   componentDidMount() {
@@ -187,21 +146,8 @@ class App extends Component<Props> {
             <TabPanel style={{ height: '100%' }}>
               <ReactTable
                 style={{ height: '100%' }}
-                data={() => {
-                  if (!this.props.topics.topic.partitions || this.props.topics.topic.partitions.length === 0) {
-                    return [{
-                      partition: '',
-                      broker: '',
-                      leader: '',
-                      in_sync: '',
-                    }];
-                  }
-                  const formatedData = [];
-                  this.props.topics.topic.partitions.forEach(d =>
-                    d.replicas.forEach(r => formatedData.push({ ...r, partition: d.partition })));
-                  return formatedData;
-                }}
-                columns={columns}
+                data={this.props.topics.topic.partitions}
+                columns={topicPartitionColumns}
                 defaultPageSize={25}
               />
             </TabPanel>

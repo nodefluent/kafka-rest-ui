@@ -41,7 +41,7 @@ export default function reducer(
         ...state,
         topic: {
           ...state.topic,
-          partitions: action.payload.partitions || [],
+          partitions: action.payload || [],
         },
       };
     }

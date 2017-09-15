@@ -62,7 +62,7 @@ export default function reducer(
     case SET_PAGE: {
       return {
         ...state,
-        page: action.page && action.page >= 0 ? action.page : 0,
+        page: (action.page && action.page >= 0) ? action.page : 0,
       };
     }
 
@@ -71,7 +71,7 @@ export default function reducer(
         ...state,
         loading: false,
         progress: '',
-        error: action.message.toString() + action.message.stack.toString(),
+        error: action.message,
       };
     }
 
@@ -131,7 +131,16 @@ export const clear = () => ({
   type: CLEAR,
 });
 
-export const error = (message :Error) => ({
-  type: ERROR,
-  message,
-});
+export const error = (message :Error) => {
+  let errorMessage = '';
+  if (message && message.stack) {
+    errorMessage = message.toString() + message.stack.toString();
+  } else if (message) {
+    errorMessage.toString();
+  }
+
+  return {
+    type: ERROR,
+    message: errorMessage,
+  };
+};

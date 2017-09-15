@@ -27,7 +27,7 @@ export default function reducer(
     case ERROR: {
       return {
         ...state,
-        error: action.message.toString() + action.message.stack.toString(),
+        error: action.message,
       };
     }
 
@@ -57,7 +57,16 @@ export const clear = () => ({
   type: CLEAR,
 });
 
-export const error = (message :Error) => ({
-  type: ERROR,
-  message,
-});
+export const error = (message :Error) => {
+  let errorMessage = '';
+  if (message && message.stack) {
+    errorMessage = message.toString() + message.stack.toString();
+  } else if (message) {
+    errorMessage.toString();
+  }
+
+  return {
+    type: ERROR,
+    message: errorMessage,
+  };
+};

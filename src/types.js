@@ -16,6 +16,7 @@ export type ConsumerAction = {
   consumerId?: string,
   topicName?: string,
   timeout?: number,
+  page?: number,
 }
 
 export type Topics = {
@@ -31,6 +32,10 @@ export type Topics = {
 export type TopicAction = {
   type: string,
   message?: Error,
+  topic?: {
+    name: string,
+    partiotions: Array<Object>
+  }
 }
 
 export type Settings = {

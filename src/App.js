@@ -30,6 +30,10 @@ type Props = {
   createConsumer: void,
   getTopics: void,
   setTimeout: void,
+  setUrl: void,
+  setPage: void,
+  consumersClear: void,
+  topicsClear: void,
   topics: Topics,
   consumers: Consumers,
   settings: Settings
@@ -38,14 +42,12 @@ type Props = {
 class App extends Component<Props> {
   componentDidMount() {
     if (process.env.REACT_APP_KAFKA_REST_URL) {
-      this.props.setUrl(process.env.REACT_APP_KAFKA_REST_URL);
+      if (this.props.setUrl) this.props.setUrl(process.env.REACT_APP_KAFKA_REST_URL);
     }
     if (process.env.REACT_APP_TIMEOUT) {
-      this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
+      if (this.props.setTimeout) this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
     }
-    if (this.props.getTopics) {
-      this.props.getTopics();
-    }
+    if (this.props.getTopics) this.props.getTopics();
   }
 
   componentWillReceiveProps(newProps) {
@@ -57,7 +59,7 @@ class App extends Component<Props> {
         autoDismiss: 0,
         // position: 'br',
       });
-      this.props.consumersClear();
+      if (this.props.consumersClear) this.props.consumersClear();
     }
     if (newProps.topics.error) {
       this.notificationSystem.addNotification({
@@ -67,7 +69,7 @@ class App extends Component<Props> {
         autoDismiss: 0,
         // position: 'br',
       });
-      this.props.topicsClear();
+      if (this.props.topicsClear) this.props.topicsClear();
     }
   }
 
@@ -90,7 +92,7 @@ class App extends Component<Props> {
               onItemSelection={!this.props.consumers.loading ?
                 (topicId, parent) => {
                   const topicName = topicId.replace(`${parent}/`, '');
-                  this.props.createConsumer(topicName);
+                  if (this.props.createConsumer) this.props.createConsumer(topicName);
                 } :
                 () => {}}
             >
@@ -124,7 +126,9 @@ class App extends Component<Props> {
                 </div> }
                 {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
                   <ReactJson
-                    src={this.props.consumers.records.length > 0 && this.props.consumers.page >= 0 ?
+                    src={this.props.consumers.records.length > 0
+                      && this.props.consumers.page
+                      && this.props.consumers.page >= 0 ?
                       this.props.consumers.records[this.props.consumers.page] :
                       this.props.consumers.records}
                     name={null}
@@ -148,7 +152,7 @@ class App extends Component<Props> {
                           return;
                         }
                         const topicName = this.props.topics.topic.name;
-                        this.props.createConsumer(topicName, 'earliest');
+                        if (this.props.createConsumer) this.props.createConsumer(topicName, 'earliest');
                       } :
                       () => {}}
                     className="NaviagationButton"
@@ -177,7 +181,7 @@ class App extends Component<Props> {
                           return;
                         }
                         const topicName = this.props.topics.topic.name;
-                        this.props.createConsumer(topicName, 'latest');
+                        if (this.props.createConsumer) this.props.createConsumer(topicName, 'latest');
                       } :
                       () => {}}
                     className="NaviagationButton"
@@ -229,7 +233,7 @@ class App extends Component<Props> {
                     type="number"
                     value={this.props.settings.timeout}
                     onChange={(event) => {
-                      if (event.target.validity.valid) {
+                      if (event.target.validity.valid && this.props.setTimeout) {
                         this.props.setTimeout(event.target.value);
                       }
                     }}

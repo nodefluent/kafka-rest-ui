@@ -32,11 +32,11 @@ export const topicPartitionColumns = [
   {
     id: 'leader',
     Header: 'Is Leader',
-    accessor: d => d.leader.toString(),
+    accessor: (d :Object) => d.leader.toString(),
   },
   {
     id: 'in_sync',
     Header: 'Is in sync',
-    accessor: d => d.in_sync.toString(),
+    accessor: (d :Object) => d.in_sync.toString(),
   },
 ];

@@ -25,9 +25,7 @@ if echo "$PROXY" | egrep -sq "true|TRUE|y|Y|yes|YES|1"; then
 fi
 
 if [ ! -z "$BASIC_AUTH_USER" ]; then
-  export SERVE_USER=${BASIC_AUTH_USER}
-  export SERVE_PASSWORD=${BASIC_AUTH_PASSWORD}
-  exec serve --auth ${PROXY_PARAMS} --port ${HTTP_PORT} --single build
+  SERVE_USER=${BASIC_AUTH_USER} SERVE_PASSWORD=${BASIC_AUTH_PASSWORD} serve --auth ${PROXY_PARAMS} --port ${HTTP_PORT} --single build
 else
-  exec serve ${PROXY_PARAMS} --port ${HTTP_PORT} --single build
+  serve ${PROXY_PARAMS} --port ${HTTP_PORT} --single build
 fi

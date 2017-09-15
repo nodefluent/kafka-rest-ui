@@ -39,7 +39,7 @@ services:
 
   kafka-rest-ui:
     build:
-      context: ../docker
+      context: ../docker-caddy
       dockerfile: Dockerfile
     ports:
       - 8000:8000

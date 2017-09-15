@@ -19,4 +19,4 @@ RUN apk add --no-cache bash curl git \
 
 WORKDIR /kafka-rest-ui
 EXPOSE ${HTTP_PORT:-8000}
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/entrypoint.sh"]

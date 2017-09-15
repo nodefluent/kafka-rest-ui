@@ -1,0 +1,9 @@
+0.0.0.0:{$HTTP_PORT}
+tls off
+
+cors
+
+log stdout
+errors stdout
+
+root /kafka-rest-ui/build

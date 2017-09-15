@@ -19,6 +19,7 @@ export const getInstance = (url :string = 'http://localhost:8082/', timeout :num
 
   return axios.create({
     baseURL: url,
+    withCredentials: !!process.env.REACT_APP_PROXY,
     timeout: ((timeout || 2000) + 1000),
     headers,
   });

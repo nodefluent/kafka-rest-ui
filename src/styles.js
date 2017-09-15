@@ -21,6 +21,7 @@ export const colorTheme = {
 
 export const topicPartitionColumns = [
   {
+    id: 'partition',
     Header: 'Partition',
     accessor: 'partition',
   },

@@ -96,16 +96,17 @@ class App extends Component<Props> {
                 } :
                 () => {}}
             >
+              <div style={{
+                color: '#AAA',
+                margin: '10px 12px',
+                padding: '4px 12px 2px',
+              }}
+              >Topics</div>
               {this.props.topics.list.map((topic, index) =>
                 (<Nav id={topic} key={`topic${index}`}>
                   <NavIcon><Icon size={20} icon={ic_list} /></NavIcon>
                   <NavText>{topic}</NavText>
                 </Nav>))
-              }
-              {this.props.topics.list.length === 0 && (
-                <Nav key={'__notopic'}>
-                  <NavText>No topics found</NavText>
-                </Nav>)
               }
             </SideNav>
           </div>
@@ -209,6 +210,12 @@ class App extends Component<Props> {
             <TabPanel style={{ height: '100%' }}>
               <ReactTable
                 style={{ height: '100%' }}
+                sorted={[
+                  {
+                    id: 'partition',
+                    desc: false,
+                  },
+                ]}
                 data={this.props.topics.topic.partitions}
                 columns={topicPartitionColumns}
                 defaultPageSize={25}
@@ -237,7 +244,7 @@ class App extends Component<Props> {
                         this.props.setTimeout(event.target.value);
                       }
                     }}
-                    step="any"
+                    step="100"
                     min="1000"
                     max="120000"
                     className="InputField"

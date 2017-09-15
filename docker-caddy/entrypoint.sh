@@ -19,10 +19,6 @@ if [[ -z "$REACT_APP_KAFKA_REST_URL" ]]; then
     echo "Kafka REST URL was not set via REACT_APP_KAFKA_REST_URL environment variable."
 fi
 
-if [ ! -z "$BASIC_AUTH_USER" ]; then
-  echo 'basicauth / {$BASIC_AUTH_USER} {$BASIC_AUTH_PASSWORD}' >>/caddy/Caddyfile
-fi
-
 if echo "$PROXY" | egrep -sq "true|TRUE|y|Y|yes|YES|1"; then
   PROXY_URL=${REACT_APP_KAFKA_REST_URL}
   REACT_APP_KAFKA_REST_URL="/api/kafka-rest"
@@ -36,6 +32,10 @@ if echo "$PROXY" | egrep -sq "true|TRUE|y|Y|yes|YES|1"; then
   without /api/kafka-rest
 }' >>/caddy/Caddyfile
   fi
+fi
+
+if [ ! -z "$BASIC_AUTH_USER" ]; then
+  echo 'basicauth {$REACT_APP_KAFKA_REST_URL} {$BASIC_AUTH_USER} {$BASIC_AUTH_PASSWORD}' >>/caddy/Caddyfile
 fi
 
 echo "Building application..."

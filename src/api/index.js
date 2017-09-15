@@ -1,12 +1,29 @@
 // @flow
 import axios from 'axios';
 
-export const getInstance = (url :string = 'http://localhost:8082/', timeout :number = 2000) =>
-  axios.create({
+export const getInstance = (url :string = 'http://localhost:8082/', timeout :number = 2000) => {
+  const headers = {
+    'content-type': 'application/json',
+    'cache-control': 'no-cache',
+  };
+
+  if (process.env.REACT_APP_PROXY) {
+    // $FlowIgnore
+    headers['Access-Control-Allow-Origin'] = '*';
+    // $FlowIgnore
+    headers['Access-Control-Allow-Credentials'] = 'true';
+    // $FlowIgnore
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+    // $FlowIgnore
+    headers['Access-Control-Allow-Headers'] = 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With';// eslint-disable-line
+  }
+
+  return axios.create({
     baseURL: url,
     timeout: ((timeout || 2000) + 1000),
-    headers: { 'content-type': 'application/json', 'cache-control': 'no-cache' },
+    headers,
   });
+};
 
 export const getTopics = (url : string, timeout : number) => getInstance(url, timeout).get('/topics');
 export const getTopic = (url : string, timeout : number, topicName :string) =>

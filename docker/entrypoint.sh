@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -z "${DEBUG}" ]; then
+  set +o xtrace
+else
+  set -o xtrace
+fi
+
 export REACT_APP_KAFKA_REST_URL="${REACT_APP_KAFKA_REST_URL:-http://localhost:8082}"
 export REACT_APP_TIMEOUT="${REACT_APP_TIMEOUT:-2000}"
 export REACT_APP_PROXY=${PROXY}

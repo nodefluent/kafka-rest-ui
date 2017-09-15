@@ -127,7 +127,7 @@ class App extends Component<Props> {
                 {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
                   <ReactJson
                     src={this.props.consumers.records.length > 0
-                      && this.props.consumers.page
+                      && typeof this.props.consumers.page === 'number'
                       && this.props.consumers.page >= 0 ?
                       this.props.consumers.records[this.props.consumers.page] :
                       this.props.consumers.records}

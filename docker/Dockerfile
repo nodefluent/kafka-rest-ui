@@ -2,7 +2,7 @@ FROM node:alpine
 MAINTAINER nodefluent
 
 ENV CADDY_VERSION=0.10.9
-ENV KAFKA_REST_UI_VERSION=0.1.0
+ENV KAFKA_REST_UI_VERSION=0.2.0
 
 WORKDIR /
 COPY ./Caddyfile /caddy/Caddyfile

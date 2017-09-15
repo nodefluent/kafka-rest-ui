@@ -91,48 +91,52 @@ class App extends Component<Props> {
         </div>
         <div className="FullHeight">
           <div className="SideNav">
-            <SideNav
-              highlightBgColor="#6e8294"
-              defaultSelected="topics"
-              onItemSelection={!this.props.consumers.loading ?
-                (topicId, parent) => {
-                  const topicName = topicId.replace(`${parent}/`, '');
-                  if (this.props.createConsumer) this.props.createConsumer(topicName);
-                } :
-                () => {}}
-            >
-              <div style={{
-                color: '#AAA',
-                margin: '10px 12px',
-                padding: '4px 12px 2px',
-              }}
-              >Topics</div>
-              {this.props.topics.list.map((topic, index) =>
-                (<Nav id={topic} key={`topic${index}`}>
-                  <NavIcon><Icon size={20} icon={ic_list} /></NavIcon>
-                  <NavText>{topic}</NavText>
-                </Nav>))
-              }
-            </SideNav>
             <div style={{
-              color: '#AAA',
-              margin: '10px 12px 0px 12px;',
-              padding: '4px 12px 2px',
-              height: '42px',
-              position: 'absolute',
-              bottom: '0',
-              left: '0',
+              height: '-webkit-calc(100% - 42px)',
+              overflow: 'auto',
             }}
             >
-              <p>
+              <SideNav
+                highlightBgColor="#6e8294"
+                defaultSelected="topics"
+                onItemSelection={!this.props.consumers.loading ?
+                  (topicId, parent) => {
+                    const topicName = topicId.replace(`${parent}/`, '');
+                    if (this.props.createConsumer) this.props.createConsumer(topicName);
+                  } :
+                  () => {}}
+              >
+                <div style={{
+                  color: '#AAA',
+                  margin: '10px 12px',
+                  padding: '4px 12px 2px',
+                }}
+                >Topics</div>
+                {this.props.topics.list.map((topic, index) =>
+                  (<Nav id={topic} key={`topic${index}`}>
+                    <NavIcon><Icon size={20} icon={ic_list} /></NavIcon>
+                    <NavText>{topic}</NavText>
+                  </Nav>))
+                }
+              </SideNav>
+              <div style={{
+                color: '#AAA',
+                margin: '10px 12px 0px 12px;',
+                padding: '4px 12px 2px',
+                height: '42px',
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+              }}
+              >
                 <a
-                  style={{ color: '#AAA' }}
+                  style={{ color: '#AAA', cursor: 'pointer' }}
                   href="https://github.com/nodefluent"
                   target="_blank"
                   rel="noopener noreferrer"
                 >Powered by nodefluent </a>
                 <img src={nodefluent} style={{ height: '32px' }} className="nodefluent-logo" alt="nodefluent" />
-              </p>
+              </div>
             </div>
           </div>
           <Tabs style={{ height: '-webkit-calc(100% - 44px)' }}>

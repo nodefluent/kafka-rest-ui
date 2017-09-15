@@ -24,6 +24,7 @@ import { setTimeout, setUrl } from './ducks/settings';
 import { colorTheme, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
+import nodefluent from './nodefluent.png';
 import './App.css';
 
 type Props = {
@@ -109,6 +110,25 @@ class App extends Component<Props> {
                 </Nav>))
               }
             </SideNav>
+            <div style={{
+              color: '#AAA',
+              margin: '10px 12px',
+              padding: '4px 12px 2px',
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+            }}
+            >
+              <p>
+                <a
+                  style={{ color: '#AAA' }}
+                  href="https://github.com/nodefluent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Powered by nodefluent </a>
+                <img src={nodefluent} style={{ height: '32px' }} className="nodefluent-logo" alt="nodefluent" />
+              </p>
+            </div>
           </div>
           <Tabs style={{ height: '-webkit-calc(100% - 44px)' }}>
             <TabList>

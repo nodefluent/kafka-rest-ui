@@ -48,6 +48,9 @@ services:
     depends_on:
       - kafka-rest
     environment:
+      DEBUG: "*"
       REACT_APP_KAFKA_REST_URL: "http://kafka-rest:8082/"
       REACT_APP_TIMEOUT: "3000"
       PROXY: "yes"
+      BASIC_AUTH_USER: "admin"
+      BASIC_AUTH_PASSWORD: "admin"

@@ -4,12 +4,11 @@ import axios from 'axios';
 export const getInstance = (url :string = 'http://localhost:8082/', timeout :number = 2000) => {
   const headers = {
     'content-type': 'application/json',
-    'cache-control': 'no-cache',
   };
 
   if (process.env.REACT_APP_PROXY) {
     // $FlowIgnore
-    headers['Access-Control-Allow-Origin'] = '*';
+    headers['Access-Control-Allow-Origin'] = process.env.REACT_APP_KAFKA_REST_URL || '*';
     // $FlowIgnore
     headers['Access-Control-Allow-Credentials'] = 'true';
     // $FlowIgnore

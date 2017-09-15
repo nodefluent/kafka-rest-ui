@@ -83,7 +83,11 @@ class App extends Component<Props> {
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <span style={{ fontSize: '1.5em' }}>Kafka REST UI</span>
+          <span style={{
+            fontSize: '1.5em',
+            position: 'absolute',
+            top: '2px' }}
+          >Kafka REST UI</span>
         </div>
         <div className="FullHeight">
           <div className="SideNav">
@@ -112,8 +116,9 @@ class App extends Component<Props> {
             </SideNav>
             <div style={{
               color: '#AAA',
-              margin: '10px 12px',
+              margin: '10px 12px 0px 12px;',
               padding: '4px 12px 2px',
+              height: '42px',
               position: 'absolute',
               bottom: '0',
               left: '0',

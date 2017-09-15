@@ -9,6 +9,7 @@
     "axios": "^0.16.2",
     "eslint": "^4.6.1",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-icons-kit": "^1.0.7",
     "react-json-tree": "^0.10.9",

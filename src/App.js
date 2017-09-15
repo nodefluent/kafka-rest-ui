@@ -11,6 +11,7 @@ import { ic_loop } from 'react-icons-kit/md/ic_loop';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Button } from 'react-bootstrap';
 // $FlowIgnore
 import 'react-tabs/style/react-tabs.css';
 // $FlowIgnore
@@ -86,7 +87,12 @@ class App extends Component<Props> {
             <SideNav
               highlightBgColor="#6e8294"
               defaultSelected="topics"
-              onItemSelection={!this.props.consumers.loading ? this.props.createConsumer : () => {}}
+              onItemSelection={!this.props.consumers.loading ?
+                (topicId, parent) => {
+                  const topicName = topicId.replace(`${parent}/`, '');
+                  this.props.createConsumer(topicName);
+                } :
+                () => {}}
             >
               {this.props.topics.list.map((topic, index) =>
                 (<Nav id={topic} key={`topic${index}`}>
@@ -104,7 +110,7 @@ class App extends Component<Props> {
           <Tabs style={{ height: '-webkit-calc(100% - 44px)' }}>
             <TabList>
               <Tab>Messages</Tab>
-              <Tab>Messages (another view)</Tab>
+              <Tab>All Messages</Tab>
               <Tab>Partitions</Tab>
               <Tab>Configs</Tab>
               <Tab style={{ float: 'right' }}>Settings</Tab>
@@ -130,7 +136,24 @@ class App extends Component<Props> {
                 (<div className="NoContent">No records found</div>)}
               <div className="Navigation">
                 <div className="NavigationLeft">
-                  <button className="NaviagationButton">drain earliest</button>
+                  <Button
+                    onClick={!this.props.consumers.loading ?
+                      () => {
+                        if (!this.props.topics.topic || this.props.topics.topic.name === '') {
+                          this.notificationSystem.addNotification({
+                            title: 'Topic not selected',
+                            message: 'Please select topic first',
+                            level: 'info',
+                          });
+                          return;
+                        }
+                        const topicName = this.props.topics.topic.name;
+                        this.props.createConsumer(topicName, 'earliest');
+                      } :
+                      () => {}}
+                    className="NaviagationButton"
+                  >drain earliest
+                  </Button>
                 </div>
                 <div className="NavigationCenter">
                   <Pager
@@ -142,7 +165,23 @@ class App extends Component<Props> {
                   />
                 </div>
                 <div className="NavigationRight">
-                  <button className="NaviagationButton">drain latest</button>
+                  <Button
+                    onClick={!this.props.consumers.loading ?
+                      () => {
+                        if (!this.props.topics.topic || this.props.topics.topic.name === '') {
+                          this.notificationSystem.addNotification({
+                            title: 'Topic not selected',
+                            message: 'Please select topic first',
+                            level: 'info',
+                          });
+                          return;
+                        }
+                        const topicName = this.props.topics.topic.name;
+                        this.props.createConsumer(topicName, 'latest');
+                      } :
+                      () => {}}
+                    className="NaviagationButton"
+                  >drain latest</Button>
                 </div>
               </div>
             </TabPanel>

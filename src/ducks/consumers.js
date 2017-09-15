@@ -88,13 +88,13 @@ export default function reducer(
   }
 }
 
-export const createConsumer = (topicId :string, parent :string) => {
-  const topicName = topicId.replace(`${parent}/`, '');
+export const createConsumer = (topicName :string, offset :string) => {
   const consumerId = `consumer_${topicName}_${new Date().toISOString()}`;
   return {
     type: CREATE,
     consumerId,
     topicName,
+    offset,
   };
 };
 

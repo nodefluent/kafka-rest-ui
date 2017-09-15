@@ -7,6 +7,7 @@ export type Consumers = {
   error?: string,
   progress?: string,
   timeout?: number,
+  page?: number,
 }
 
 export type ConsumerAction = {

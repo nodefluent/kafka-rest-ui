@@ -4,11 +4,10 @@ import ReactJson from 'react-json-view';
 import JSONTree from 'react-json-tree';
 import ReactTable from 'react-table';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
-import Icon, { horizontalCenter } from 'react-icons-kit';
+import Icon from 'react-icons-kit';
+import Pager from 'react-pager';
 import { ic_list } from 'react-icons-kit/md/ic_list';
 import { ic_loop } from 'react-icons-kit/md/ic_loop';
-import { ic_fast_forward } from 'react-icons-kit/md/ic_fast_forward';
-import { ic_fast_rewind } from 'react-icons-kit/md/ic_fast_rewind';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -17,7 +16,7 @@ import 'react-tabs/style/react-tabs.css';
 // $FlowIgnore
 import 'react-table/react-table.css';
 
-import { createConsumer, clear as consumersClear } from './ducks/consumers';
+import { createConsumer, clear as consumersClear, setPage } from './ducks/consumers';
 import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTimeout, setUrl } from './ducks/settings';
 
@@ -102,7 +101,7 @@ class App extends Component<Props> {
               }
             </SideNav>
           </div>
-          <Tabs style={{ height: '-webkit-calc(100% - 42px)' }}>
+          <Tabs style={{ height: '-webkit-calc(100% - 44px)' }}>
             <TabList>
               <Tab>Messages</Tab>
               <Tab>Messages (another view)</Tab>
@@ -119,7 +118,9 @@ class App extends Component<Props> {
                 </div> }
                 {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
                   <ReactJson
-                    src={this.props.consumers.records}
+                    src={this.props.consumers.records.length > 0 && this.props.consumers.page >= 0 ?
+                      this.props.consumers.records[this.props.consumers.page] :
+                      this.props.consumers.records}
                     name={null}
                     displayDataTypes={false}
                     iconStyle={'circle'}
@@ -129,10 +130,19 @@ class App extends Component<Props> {
                 (<div className="NoContent">No records found</div>)}
               <div className="Navigation">
                 <div className="NavigationLeft">
-                  <button className="NaviagationButton"><Icon icon={ic_fast_rewind} /></button>
+                  <button className="NaviagationButton">drain earliest</button>
+                </div>
+                <div className="NavigationCenter">
+                  <Pager
+                    total={this.props.consumers.records.length}
+                    current={this.props.consumers.page}
+                    visiblePages={3}
+                    className="NaviagationPager"
+                    onPageChanged={this.props.setPage}
+                  />
                 </div>
                 <div className="NavigationRight">
-                  <button className="NaviagationButton"><Icon icon={ic_fast_forward} /></button>
+                  <button className="NaviagationButton">drain latest</button>
                 </div>
               </div>
             </TabPanel>
@@ -201,6 +211,6 @@ class App extends Component<Props> {
 
 const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 
-const mapDispatchToProps = { createConsumer, getTopics, setTimeout, setUrl, consumersClear, topicsClear };
+const mapDispatchToProps = { createConsumer, getTopics, setTimeout, setUrl, setPage, consumersClear, topicsClear };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

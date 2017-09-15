@@ -7,11 +7,12 @@ export const GET_RECORDS = 'kafka-rest/consumers/get-records';
 export const UPDATE_RECORDS = 'kafka-rest/consumers/update-records';
 export const SUBSCRIBE = 'kafka-rest/consumers/subscribe';
 export const SET_TIMEOUT = 'kafka-rest/consumers/set-timeout';
+export const SET_PAGE = 'kafka-rest/consumers/set-page';
 export const ERROR = 'kafka-rest/consumers/error';
 export const CLEAR = 'kafka-rest/consumers/clear';
 
 export default function reducer(
-  state : Consumers = { list: {}, records: [], loading: false, progress: '', error: '' },
+  state : Consumers = { list: {}, records: [], loading: false, page: 0, progress: '', error: '' },
   action :ConsumerAction) {
   switch (action.type) {
     case CREATE: {
@@ -55,6 +56,13 @@ export default function reducer(
           },
         },
         progress: `Subscribe to topic ${action.topicName || ''} ...`,
+      };
+    }
+
+    case SET_PAGE: {
+      return {
+        ...state,
+        page: action.page && action.page >= 0 ? action.page : 0,
       };
     }
 
@@ -114,6 +122,10 @@ export const subscribe = (consumerId :string, topicName :string) => ({
   topicName,
 });
 
+export const setPage = (index :number) => ({
+  type: SET_PAGE,
+  page: index,
+});
 
 export const clear = () => ({
   type: CLEAR,

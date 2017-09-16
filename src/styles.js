@@ -87,10 +87,12 @@ export const consumerColumns = [
     id: 'offset',
     Header: 'Offset',
     accessor: 'offset',
+    width: 150,
   },
   {
     id: 'status',
     Header: 'Status',
     accessor: 'status',
+    width: 150,
   },
 ];

@@ -312,7 +312,7 @@ class App extends Component<Props> {
                 filterable
                 sorted={[
                   {
-                    id: 'id',
+                    id: 'consumerId',
                     desc: true,
                   },
                 ]}

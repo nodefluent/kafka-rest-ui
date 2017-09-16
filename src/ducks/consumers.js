@@ -20,7 +20,7 @@ export default function reducer(
       newState.list.push({
         consumerId: action.consumerId,
         topicName: action.topicName,
-        offset: action.offset,
+        offset: action.offset || 'earliest',
         status: 'created',
       });
       return newState;

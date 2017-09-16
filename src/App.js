@@ -19,7 +19,7 @@ import 'react-table/react-table.css';
 
 import { createConsumer, clear as consumersClear, setPage } from './ducks/consumers';
 import { getTopics, clear as topicsClear } from './ducks/topics';
-import { setTimeout, setUrl } from './ducks/settings';
+import { setTimeout, setUrl, setWindow } from './ducks/settings';
 
 import { colorTheme, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
@@ -33,6 +33,7 @@ type Props = {
   setTimeout: void,
   setUrl: void,
   setPage: void,
+  setWindow: void,
   consumersClear: void,
   topicsClear: void,
   topics: Topics,
@@ -121,7 +122,7 @@ class App extends Component<Props> {
               </SideNav>
               <div style={{
                 color: '#AAA',
-                margin: '10px 12px 0px 12px;',
+                margin: '10px 12px 0px 12px',
                 padding: '4px 12px 2px',
                 height: '42px',
                 position: 'absolute',
@@ -264,7 +265,7 @@ class App extends Component<Props> {
                     step="any"
                     className="InputField"
                   /></td></tr>
-                <tr><td><div className="FieldLabel">API timeout:</div></td>
+                <tr><td><div className="FieldLabel">API request timeout:</div></td>
                   <td><input
                     type="number"
                     value={this.props.settings.timeout}
@@ -276,6 +277,20 @@ class App extends Component<Props> {
                     step="100"
                     min="1000"
                     max="120000"
+                    className="InputField"
+                  /></td></tr>
+                <tr><td><div className="FieldLabel">API max window size:</div></td>
+                  <td><input
+                    type="number"
+                    value={this.props.settings.window}
+                    onChange={(event) => {
+                      if (event.target.validity.valid && this.props.setWindow) {
+                        this.props.setWindow(event.target.value);
+                      }
+                    }}
+                    step="1"
+                    min="10"
+                    max="10000"
                     className="InputField"
                   /></td></tr>
               </tbody></table>
@@ -290,6 +305,15 @@ class App extends Component<Props> {
 
 const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 
-const mapDispatchToProps = { createConsumer, getTopics, setTimeout, setUrl, setPage, consumersClear, topicsClear };
+const mapDispatchToProps = {
+  consumersClear,
+  createConsumer,
+  getTopics,
+  setPage,
+  setTimeout,
+  setUrl,
+  setWindow,
+  topicsClear,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

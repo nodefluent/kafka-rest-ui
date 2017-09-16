@@ -41,6 +41,7 @@ export type TopicAction = {
 export type Settings = {
   url: string,
   timeout: number,
+  window: number,
   error?: string,
 }
 
@@ -48,4 +49,5 @@ export type SettingAction = {
   type: string,
   message?: Error,
   timeout?: number,
+  window?: number,
 }

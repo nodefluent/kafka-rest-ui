@@ -19,8 +19,12 @@ export function createConsumer(action$ :any, store :any, { api } :any) :Observab
     .filter(() => !store.getState().loading)
     .switchMap((action) => {
       const state = store.getState();
-      return Observable.fromPromise(
-        api.createConsumer(state.settings.url, state.settings.timeout, action.consumerId, action.offset))
+      return Observable.fromPromise(api.createConsumer(
+        state.settings.url,
+        state.settings.timeout,
+        action.consumerId,
+        action.offset,
+        state.settings.window))
         .switchMap(() => Observable.of(getTopic(action.topicName), subscribe(action.consumerId, action.topicName)));
     })
     .catch(err => Observable.of(error(err)));

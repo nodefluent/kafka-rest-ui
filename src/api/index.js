@@ -30,10 +30,11 @@ export const getTopic = (url : string, timeout : number, topicName :string) =>
   getInstance(url, timeout).get(`/topics/${topicName}`);
 
 export const createConsumer =
-  (url : string, timeout : number, consumerId :string, offset :string = 'earliest') =>
+  (url : string, timeout : number, consumerId :string, offset :string = 'earliest', maxWindowSize :number = 100) =>
     getInstance(url, timeout).post(`/consumers/${consumerId}`, {
       name: consumerId,
       format: 'json',
+      maxWindowSize,
       'auto.offset.reset': offset,
     });
 

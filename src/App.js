@@ -83,12 +83,11 @@ class App extends Component<Props> {
       <div className="App">
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <span style={{
             fontSize: '1.5em',
             position: 'absolute',
-            top: '2px' }}
-          >Kafka REST UI</span>
+            top: '6px' }}
+          ><img src={logo} className="App-logo" alt="logo" />Kafka REST UI</span>
         </div>
         <div className="FullHeight">
           <div className="SideNav">

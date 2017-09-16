@@ -1,6 +1,7 @@
 // @flow
 import { Observable } from 'rxjs';
 import { GET_TOPIC, GET_TOPICS, received, topicReceived, error } from '../ducks/topics';
+import kafkaConfigDescriptions from './kafkaConfigDescriptions';
 
 export function getTopics(action$ :any, store :any, { api } :any) {
   return action$.ofType(GET_TOPICS)
@@ -26,9 +27,23 @@ export function getTopic(action$ :any, store :any, { api } :any) {
       if (!data.partitions || data.partitions.length === 0) {
         return [];
       }
-      const formatedData = [];
-      data.partitions.forEach(d => d.replicas.forEach(r => formatedData.push({ ...r, partition: d.partition })));
-      return Observable.of(topicReceived(formatedData));
+      const formatedPartitions = [];
+      data.partitions.forEach(d => d.replicas.forEach(r => formatedPartitions.push({ ...r, partition: d.partition })));
+
+      const formatedConfig = [];
+      if (data.configs) {
+        Object.keys(data.configs).forEach((c) => {
+          const kafkaConfigDescription = kafkaConfigDescriptions[c];
+          if (kafkaConfigDescription) {
+            formatedConfig.push({
+              ...kafkaConfigDescription,
+              value: data.configs[c],
+            });
+          }
+        });
+      }
+
+      return Observable.of(topicReceived({ configs: formatedConfig, partitions: formatedPartitions }));
     })
     .catch(err => Observable.of(error(err)));
 }

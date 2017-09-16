@@ -42,6 +42,8 @@
     "kafka:rick": "yarn kafka:stop && yarn kafka:build && yarn kafka:start && yarn kafka:generate-data && yarn start",
     "kafka:producer": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-console-producer.sh --topic=test --broker-list=localhost:9092'",
     "kafka:consumer": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-console-consumer.sh --topic=test --bootstrap-server=localhost:9092 --from-beginning'",
+    "kafka:set-topic-config": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-configs.sh --alter --topic=test --zookeeper=zookeeper:2181 --config retention.ms=86400000'",
+    "kafka:topic-describe": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-configs.sh --describe --topic=test --zookeeper=zookeeper:2181'",
     "kafka:generate-data": "while IFS= read line; do echo \"echo '$line' | kafka-console-producer.sh --topic=test --broker-list=localhost:9092 --property='parse.key=true' --property='key.separator=#' \" | docker exec -i kafkasetup_kafka_1 bash -; done< ./kafka-setup/test-data.txt"
   },
   "devDependencies": {

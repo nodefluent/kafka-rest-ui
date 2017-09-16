@@ -9,7 +9,7 @@ export const ERROR = 'kafka-rest/topics/error';
 export const CLEAR = 'kafka-rest/topics/clear';
 
 export default function reducer(
-  state :Topics = { list: [], topic: { name: '', partiotions: [] }, loading: false, error: '' },
+  state :Topics = { list: [], topic: { name: '', partiotions: [], configs: [] }, loading: false, error: '' },
   action: TopicAction) {
   switch (action.type) {
     case RECEIVED: {
@@ -41,7 +41,8 @@ export default function reducer(
         ...state,
         topic: {
           ...state.topic,
-          partitions: action.payload || [],
+          configs: action.payload.configs || [],
+          partitions: action.payload.partitions || [],
         },
       };
     }

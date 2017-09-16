@@ -41,3 +41,27 @@ export const topicPartitionColumns = [
     accessor: (d :Object) => d.in_sync.toString(),
   },
 ];
+
+export const topicConfigColumns = [
+  {
+    id: 'config',
+    Header: 'Config',
+    accessor: 'config',
+  },
+  {
+    id: 'value',
+    Header: 'Value',
+    accessor: 'value',
+  },
+  {
+    id: 'default',
+    Header: 'Default',
+    accessor: 'default',
+  },
+  {
+    style: { overflow: 'visible' },
+    id: 'description',
+    Header: 'Description',
+    accessor: 'description',
+  },
+];

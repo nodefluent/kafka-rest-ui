@@ -21,7 +21,7 @@ import { createConsumer, clear as consumersClear, setPage } from './ducks/consum
 import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTimeout, setUrl, setWindow } from './ducks/settings';
 
-import { colorTheme, topicPartitionColumns } from './styles';
+import { colorTheme, topicConfigColumns, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
 import nodefluent from './nodefluent.png';
@@ -252,7 +252,19 @@ class App extends Component<Props> {
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              <div className="NoContent">No topic configuration found</div>
+              <ReactTable
+                style={{ height: '100%' }}
+                filterable
+                sorted={[
+                  {
+                    id: 'config',
+                    desc: false,
+                  },
+                ]}
+                data={this.props.topics.topic.configs}
+                columns={topicConfigColumns}
+                defaultPageSize={25}
+              />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               <table><tbody>

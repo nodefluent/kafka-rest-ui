@@ -24,6 +24,7 @@ export type Topics = {
   topic: {
     name: string,
     partitions?: Array<Object>,
+    configs?: Array<Object>,
   },
   loading: boolean,
   error?: string,
@@ -34,7 +35,8 @@ export type TopicAction = {
   message?: Error,
   topic?: {
     name: string,
-    partiotions: Array<Object>
+    partiotions: Array<Object>,
+    configs: Array<Object>,
   }
 }
 

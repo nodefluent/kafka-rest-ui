@@ -47,19 +47,21 @@ export const topicConfigColumns = [
     id: 'config',
     Header: 'Config',
     accessor: 'config',
+    width: 200,
   },
   {
     id: 'value',
     Header: 'Value',
     accessor: 'value',
+    width: 200,
   },
   {
     id: 'default',
     Header: 'Default',
     accessor: 'default',
+    width: 200,
   },
   {
-    style: { overflow: 'visible' },
     id: 'description',
     Header: 'Description',
     accessor: 'description',

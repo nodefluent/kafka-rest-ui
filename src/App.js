@@ -300,8 +300,8 @@ class App extends Component<Props> {
                       }
                     }}
                     step="1"
-                    min="10"
-                    max="10000"
+                    min="1"
+                    max="100000"
                     className="InputField"
                   /></td></tr>
               </tbody></table>

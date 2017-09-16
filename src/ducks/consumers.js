@@ -12,18 +12,29 @@ export const ERROR = 'kafka-rest/consumers/error';
 export const CLEAR = 'kafka-rest/consumers/clear';
 
 export default function reducer(
-  state : Consumers = { list: {}, records: [], loading: false, page: 0, progress: '', error: '' },
+  state : Consumers = { list: [], records: [], loading: false, page: 0, progress: '', error: '' },
   action :ConsumerAction) {
   switch (action.type) {
     case CREATE: {
-      return {
-        ...state,
-      };
+      const newState = Object.assign({}, state);
+      newState.list.push({
+        consumerId: action.consumerId,
+        topicName: action.topicName,
+        offset: action.offset,
+        status: 'created',
+      });
+      return newState;
     }
 
     case DELETE: {
       const newState = Object.assign({}, state);
-      delete newState.list[action.consumerId];
+      newState.list.map((consumer) => {
+        if (consumer.consumerId === action.consumerId) {
+          consumer.status = 'deleted'; // eslint-disable-line
+        }
+        return consumer;
+      });
+
       return {
         ...newState,
         loading: false,
@@ -46,17 +57,16 @@ export default function reducer(
     }
 
     case SUBSCRIBE: {
-      return {
-        ...state,
-        loading: true,
-        list: {
-          ...state.list,
-          [action.consumerId]: {
-            topicName: action.topicName,
-          },
-        },
-        progress: `Subscribe to topic ${action.topicName || ''} ...`,
-      };
+      const newState = Object.assign({}, state);
+      newState.loading = true;
+      newState.progress = `Subscribe to topic ${action.topicName || ''} ...`;
+      newState.list.map((consumer) => {
+        if (consumer.consumerId === action.consumerId) {
+          consumer.status = 'subscribed'; // eslint-disable-line
+        }
+        return consumer;
+      });
+      return newState;
     }
 
     case SET_PAGE: {

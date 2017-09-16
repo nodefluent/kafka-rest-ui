@@ -71,3 +71,26 @@ export const topicConfigColumns = [
     },
   },
 ];
+
+export const consumerColumns = [
+  {
+    id: 'consumerId',
+    Header: 'Id',
+    accessor: 'consumerId',
+  },
+  {
+    id: 'topicName',
+    Header: 'Topic',
+    accessor: 'topicName',
+  },
+  {
+    id: 'offset',
+    Header: 'Offset',
+    accessor: 'offset',
+  },
+  {
+    id: 'status',
+    Header: 'Status',
+    accessor: 'status',
+  },
+];

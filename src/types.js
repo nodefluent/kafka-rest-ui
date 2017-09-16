@@ -1,7 +1,7 @@
 // @flow
 
 export type Consumers = {
-  list: Object,
+  list: Array<Object>,
   records: Array<any>,
   loading: boolean,
   error?: string,
@@ -15,6 +15,7 @@ export type ConsumerAction = {
   message?: ?Error,
   consumerId?: string,
   topicName?: string,
+  offset?: string,
   timeout?: number,
   page?: number,
 }

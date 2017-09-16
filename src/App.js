@@ -21,7 +21,7 @@ import { createConsumer, clear as consumersClear, setPage } from './ducks/consum
 import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTimeout, setUrl, setWindow } from './ducks/settings';
 
-import { colorTheme, topicConfigColumns, topicPartitionColumns } from './styles';
+import { colorTheme, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
 import nodefluent from './nodefluent.png';
@@ -146,8 +146,8 @@ class App extends Component<Props> {
               <Tab>Partitions</Tab>
               <Tab>Configs</Tab>
               <Tab style={{ float: 'right' }}>Settings</Tab>
+              <Tab style={{ float: 'right' }}>Consumers</Tab>
             </TabList>
-
             <TabPanel style={{ height: '100%' }}>
               <div className="Messages">
                 {this.props.consumers.loading && <div className="Progress">
@@ -305,6 +305,21 @@ class App extends Component<Props> {
                     className="InputField"
                   /></td></tr>
               </tbody></table>
+            </TabPanel>
+            <TabPanel style={{ height: '100%' }}>
+              <ReactTable
+                style={{ height: '100%' }}
+                filterable
+                sorted={[
+                  {
+                    id: 'id',
+                    desc: true,
+                  },
+                ]}
+                data={this.props.consumers.list}
+                columns={consumerColumns}
+                defaultPageSize={25}
+              />
             </TabPanel>
           </Tabs>
         </div>

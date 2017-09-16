@@ -35,7 +35,9 @@ export type TopicAction = {
   message?: Error,
   topic?: {
     name: string,
-    partiotions: Array<Object>,
+  },
+  payload?:{
+    partitions: Array<Object>,
     configs: Array<Object>,
   }
 }

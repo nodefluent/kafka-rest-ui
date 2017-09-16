@@ -66,8 +66,8 @@ export const topicConfigColumns = [
     Header: 'Description',
     accessor: 'description',
     style: {
-      'word-wrap': 'break-word',
-      'white-space': 'normal',
+      wordWrap: 'break-word',
+      whiteSpace: 'normal',
     },
   },
 ];

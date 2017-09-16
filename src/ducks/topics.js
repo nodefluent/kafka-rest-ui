@@ -41,8 +41,8 @@ export default function reducer(
         ...state,
         topic: {
           ...state.topic,
-          configs: action.payload.configs || [],
-          partitions: action.payload.partitions || [],
+          configs: action.payload ? action.payload.configs : [],
+          partitions: action.payload ? action.payload.partitions : [],
         },
       };
     }
@@ -98,7 +98,7 @@ export const received = (payload: any) => ({
   payload,
 });
 
-export const topicReceived = (payload: any) => ({
+export const topicReceived = (payload: {configs : Array<Object>, partitions: Array<Object>}) => ({
   type: TOPIC_RECEIVED,
   payload,
 });

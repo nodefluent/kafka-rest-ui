@@ -25,7 +25,6 @@ if (process.env.REACT_APP_DEBUG) {
   middleware.push(logger);
 }
 
-// $FlowIgnore: Type too complex
 let store;
 
 if (process.env.REACT_APP_LOCAL_STORAGE !== 'false') {
@@ -35,6 +34,7 @@ if (process.env.REACT_APP_LOCAL_STORAGE !== 'false') {
   ));
   persistStore(store, { storage: localForage });
 } else {
+  // $FlowIgnore: Type too complex
   store = createStore(reducers, compose(
     applyMiddleware(...middleware),
   ));

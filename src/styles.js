@@ -99,5 +99,6 @@ export const messageColumns = [
       wordWrap: 'break-word',
       whiteSpace: 'normal',
     },
+    filterMethod: (filter, row) => row[filter.id].includes(filter.value),
   },
 ];

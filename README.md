@@ -11,6 +11,14 @@ Kafka rest ui is a kafka topics browser.
 
 ![Preview](https://raw.githubusercontent.com/nodefluent/kafka-rest-ui/master/preview.png)
 
+## Docker
+
+#### Configurations
+
+- REACT_APP_KAFKA_REST_URL
+- REACT_APP_TIMEOUT
+- REACT_APP_LOCAL_STORAGE
+- REACT_APP_DEBUG
 
 ## TODO
 
@@ -18,3 +26,4 @@ Kafka rest ui is a kafka topics browser.
 - [ ] Add multi enpoint support
 - [ ] refactor mapping in reducers
 - [ ] write some tests
+- [ ] write better documentation

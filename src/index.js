@@ -17,9 +17,17 @@ import rootEpic from './epics';
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
+const middleware = [
+  epicMiddleware,
+];
+
+if (process.env.REACT_APP_DEBUG) {
+  middleware.push(logger);
+}
+
 // $FlowIgnore: Type too complex
 const store = createStore(reducers, compose(
-  applyMiddleware(epicMiddleware, logger),
+  applyMiddleware(...middleware),
   autoRehydrate(),
 ));
 

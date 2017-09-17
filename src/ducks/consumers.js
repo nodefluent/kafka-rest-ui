@@ -91,6 +91,7 @@ export default function reducer(
     case CLEAR: {
       return {
         ...state,
+        loading: false,
         error: null,
         progress: '',
       };

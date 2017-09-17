@@ -51,6 +51,7 @@ class App extends Component<Props> {
       if (this.props.setTimeout) this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
     }
     if (this.props.getTopics) this.props.getTopics();
+    if (this.props.consumersClear) this.props.consumersClear();
   }
 
   componentWillReceiveProps(newProps) {

@@ -14,7 +14,7 @@ Kafka rest ui is a kafka topics browser.
 
 ## TODO
 
-[ ] Replace caddy server with nginx
-[ ] Add multi enpoint support
-[ ] refactor mapping in reducers
-[ ] write some tests
+- [ ] Replace caddy server with nginx
+- [ ] Add multi enpoint support
+- [ ] refactor mapping in reducers
+- [ ] write some tests

@@ -1,6 +1,6 @@
 {
   "name": "kafka-rest-ui",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "repository": "git@github.com:nodefluent/kafka-rest-ui.git",
   "author": "nodefluent",

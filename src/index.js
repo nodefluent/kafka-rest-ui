@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { persistStore, autoRehydrate } from 'redux-persist';
+import localForage from 'localforage';
 import logger from 'redux-logger';
 
 import './index.css';
@@ -22,7 +23,7 @@ const store = createStore(reducers, compose(
   autoRehydrate(),
 ));
 
-persistStore(store);
+persistStore(store, { storage: localForage });
 
 ReactDOM.render(
   <Provider store={store}>

@@ -26,13 +26,19 @@ if (process.env.REACT_APP_DEBUG) {
 }
 
 // $FlowIgnore: Type too complex
-const store = createStore(reducers, compose(
-  applyMiddleware(...middleware),
-  autoRehydrate(),
-));
+let store;
 
-persistStore(store, { storage: localForage });
-
+if (process.env.REACT_APP_LOCAL_STORAGE !== 'false') {
+  store = createStore(reducers, compose(
+    applyMiddleware(...middleware),
+    autoRehydrate(),
+  ));
+  persistStore(store, { storage: localForage });
+} else {
+  store = createStore(reducers, compose(
+    applyMiddleware(...middleware),
+  ));
+}
 ReactDOM.render(
   <Provider store={store}>
     <App />

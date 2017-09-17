@@ -23,6 +23,9 @@ export default function reducer(
         offset: action.offset || 'earliest',
         status: 'created',
       });
+      if (newState.list.length > 100) {
+        newState.list.shift();
+      }
       return newState;
     }
 

@@ -4,11 +4,12 @@ import type { SettingAction, Settings } from '../types';
 export const SET_TIMEOUT = 'kafka-rest/settings/set-timeout';
 export const SET_WINDOW = 'kafka-rest/settings/set-window';
 export const SET_URL = 'kafka-rest/settings/set-url';
+export const SET_TAB_INDEX = 'kafka-rest/settings/set-tab-index';
 export const CLEAR = 'kafka-rest/settings/clear';
 export const ERROR = 'kafka-rest/settings/error';
 
 export default function reducer(
-  state :Settings = { url: 'http://localhost:8082/', timeout: 2000, window: 100, error: '' },
+  state :Settings = { url: 'http://localhost:8082/', timeout: 2000, window: 100, tabIndex: 0, error: '' },
   action: SettingAction) {
   switch (action.type) {
     case SET_TIMEOUT: {
@@ -32,6 +33,12 @@ export default function reducer(
       };
     }
 
+    case SET_TAB_INDEX: {
+      return {
+        ...state,
+        tabIndex: action.tabIndex || 0,
+      };
+    }
     case ERROR: {
       return {
         ...state,
@@ -64,6 +71,11 @@ export const setWindow = (window :number) => ({
 export const setUrl = (url :string) => ({
   type: SET_URL,
   url,
+});
+
+export const setTabIndex = (tabIndex :number) => ({
+  type: SET_TAB_INDEX,
+  tabIndex,
 });
 
 export const clear = () => ({

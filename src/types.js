@@ -48,6 +48,7 @@ export type Settings = {
   timeout: number,
   window: number,
   error?: string,
+  tabIndex?: number,
 }
 
 export type SettingAction = {

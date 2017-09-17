@@ -25,9 +25,9 @@
     "react-tabs": "^2.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-observable": "^0.16.0",
+    "redux-persist": "^4.9.1",
     "rxjs": "^5.4.3"
   },
   "scripts": {

@@ -19,7 +19,7 @@ import 'react-table/react-table.css';
 
 import { createConsumer, clear as consumersClear, setPage } from './ducks/consumers';
 import { getTopics, clear as topicsClear } from './ducks/topics';
-import { setTimeout, setUrl, setWindow } from './ducks/settings';
+import { setTabIndex, setTimeout, setUrl, setWindow } from './ducks/settings';
 
 import { colorTheme, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
@@ -33,6 +33,7 @@ type Props = {
   setTimeout: void,
   setUrl: void,
   setPage: void,
+  setTabIndex: void,
   setWindow: void,
   consumersClear: void,
   topicsClear: void,
@@ -103,6 +104,8 @@ class App extends Component<Props> {
                   (topicId, parent) => {
                     const topicName = topicId.replace(`${parent}/`, '');
                     if (this.props.createConsumer) this.props.createConsumer(topicName);
+                    if (this.props.setTabIndex) this.props.setTabIndex(0);
+                    if (this.props.setPage) this.props.setPage(0);
                   } :
                   () => {}}
               >
@@ -139,7 +142,13 @@ class App extends Component<Props> {
               </div>
             </div>
           </div>
-          <Tabs style={{ height: '-webkit-calc(100% - 44px)' }}>
+          <Tabs
+            style={{ height: '-webkit-calc(100% - 44px)' }}
+            selectedIndex={this.props.settings.tabIndex}
+            onSelect={(tabIndex: number) => {
+              if (this.props.setTabIndex) this.props.setTabIndex(tabIndex);
+            }}
+          >
             <TabList>
               <Tab>Messages</Tab>
               <Tab>All Messages</Tab>
@@ -338,6 +347,7 @@ const mapDispatchToProps = {
   setPage,
   setTimeout,
   setUrl,
+  setTabIndex,
   setWindow,
   topicsClear,
 };

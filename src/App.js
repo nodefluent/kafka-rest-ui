@@ -5,12 +5,18 @@ import ReactTable from 'react-table';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
 import Icon from 'react-icons-kit';
 import Pager from 'react-pager';
-import { ic_list } from 'react-icons-kit/md/ic_list';
+import { ic_view_list } from 'react-icons-kit/md/ic_view_list';
 import { ic_loop } from 'react-icons-kit/md/ic_loop';
+import { ic_description } from 'react-icons-kit/md/ic_description';
+import { ic_hearing } from 'react-icons-kit/md/ic_hearing';
+import { ic_reorder } from 'react-icons-kit/md/ic_reorder';
+import { ic_search } from 'react-icons-kit/md/ic_search';
+import { ic_settings } from 'react-icons-kit/md/ic_settings';
+import { ic_timeline } from 'react-icons-kit/md/ic_timeline';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Button } from 'react-bootstrap';
+import { Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 // $FlowIgnore
 import 'react-tabs/style/react-tabs.css';
 // $FlowIgnore
@@ -117,7 +123,7 @@ class App extends Component<Props> {
                 >Topics</div>
                 {this.props.topics.list.map((topic, index) =>
                   (<Nav id={topic} key={`topic${index}`}>
-                    <NavIcon><Icon size={20} icon={ic_list} /></NavIcon>
+                    <NavIcon><Icon size={20} icon={ic_view_list} /></NavIcon>
                     <NavText>{topic}</NavText>
                   </Nav>))
                 }
@@ -150,12 +156,12 @@ class App extends Component<Props> {
             }}
           >
             <TabList>
-              <Tab>Messages</Tab>
-              <Tab>All Messages</Tab>
-              <Tab>Partitions</Tab>
-              <Tab>Configs</Tab>
-              <Tab style={{ float: 'right' }}>Settings</Tab>
-              <Tab style={{ float: 'right' }}>Consumers</Tab>
+              <Tab><Icon size={16} icon={ic_description} /> Raw view</Tab>
+              <Tab><Icon size={16} icon={ic_search} /> Table view</Tab>
+              <Tab><Icon size={16} icon={ic_reorder} /> Topic partitions</Tab>
+              <Tab><Icon size={16} icon={ic_timeline} /> Topic configs</Tab>
+              <Tab style={{ float: 'right' }}><Icon size={16} icon={ic_settings} /> Settings</Tab>
+              <Tab style={{ float: 'right' }}><Icon size={16} icon={ic_hearing} /> Consumers</Tab>
             </TabList>
             <TabPanel style={{ height: '100%' }}>
               <div className="Messages">
@@ -273,19 +279,21 @@ class App extends Component<Props> {
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              <table><tbody>
-                <tr><td><div className="FieldLabel">Kafka rest url:</div></td>
-                  <td><input
+              <div style={{ display: 'flex', padding: '12px' }}>
+                <form>
+                  <FieldGroup
+                    id="url"
                     type="url"
-                    disabled
+                    label="Kafka rest url"
                     value={this.props.settings.url}
-                    // onChange={this.props.setUrl}
-                    step="any"
-                    className="InputField"
-                  /></td></tr>
-                <tr><td><div className="FieldLabel">API request timeout:</div></td>
-                  <td><input
+                    disabled
+                    help="Kafka rest endpoint to get topics data"
+                  />
+                  <FieldGroup
+                    id="timeout"
                     type="number"
+                    label="API request timeout"
+                    help="Kafka rest request timeout in ms (min: 1000, max: 120000)"
                     value={this.props.settings.timeout}
                     onChange={(event) => {
                       if (event.target.validity.valid && this.props.setTimeout) {
@@ -295,11 +303,12 @@ class App extends Component<Props> {
                     step="100"
                     min="1000"
                     max="120000"
-                    className="InputField"
-                  /></td></tr>
-                <tr><td><div className="FieldLabel">API max window size:</div></td>
-                  <td><input
+                  />
+                  <FieldGroup
+                    id="window"
                     type="number"
+                    label="API max window size"
+                    help="Kafka rest max messages per request (min: 1, max: 100000)"
                     value={this.props.settings.window}
                     onChange={(event) => {
                       if (event.target.validity.valid && this.props.setWindow) {
@@ -309,9 +318,9 @@ class App extends Component<Props> {
                     step="1"
                     min="1"
                     max="100000"
-                    className="InputField"
-                  /></td></tr>
-              </tbody></table>
+                  />
+                </form>
+              </div>
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               <ReactTable
@@ -335,6 +344,15 @@ class App extends Component<Props> {
   }
 }
 
+function FieldGroup({ id, label, help, ...props }) {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
 
 const mapStateToProps = ({ consumers, topics, settings }) => ({ consumers, topics, settings });
 

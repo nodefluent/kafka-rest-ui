@@ -1,13 +1,18 @@
-## Kafka REST UI
+## Kafka REST UI :mushroom:
 [![Dependency Status](https://david-dm.org/nodefluent/kafka-rest-ui.svg)](https://david-dm.org/nodefluent/kafka-rest-ui)
+
+> NOTE: the goal of this project is to mimic confluent/kafka-rest-proxy to offer a faster interface to topic data for applications like kafka-topics-ui, 
 
 Kafka rest ui is a kafka topics browser.
 
 #### Features:
-- Find kafka topics
+
+- View kafka topics
 - View topic metadata
-- Browse topic data (kafka messages)
+- Browse kafka messages (with offline storage)
+- Filter kafka messages
 - View topic configuration
+- View consumers status
 
 ![Preview](https://raw.githubusercontent.com/nodefluent/kafka-rest-ui/master/preview.png)
 

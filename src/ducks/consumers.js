@@ -88,6 +88,16 @@ export default function reducer(
       };
     }
 
+    // clear if reload the site
+    case 'persist/REHYDRATE': {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        progress: '',
+      };
+    }
+
     case CLEAR: {
       return {
         ...state,

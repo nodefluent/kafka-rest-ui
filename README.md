@@ -3,7 +3,7 @@
 
 Kafka rest ui is a kafka topics browser.
 
-> NOTE: the goal of this project is to offer a fast user interface [kafka-rest](https://github.com/nodefluent/kafka-rest). 
+> NOTE: the goal of this project is to offer a fast user interface [kafka-rest](https://github.com/nodefluent/kafka-rest).
 
 #### Features:
 
@@ -20,11 +20,11 @@ Kafka rest ui is a kafka topics browser.
 
 #### Configurations
 
-- REACT_APP_KAFKA_REST_URL
-- REACT_APP_PROXY
-- REACT_APP_TIMEOUT
-- REACT_APP_LOCAL_STORAGE
-- REACT_APP_DEBUG
+- env `REACT_APP_KAFKA_REST_URL` - set kafka-rest url
+- env `REACT_APP_PROXY` - set proxy mode
+- env `REACT_APP_TIMEOUT` - set default timeout (you can change it via settings tab)
+- env `REACT_APP_LOCAL_STORAGE` - set to 'false' if you don't want to use local storage
+- env `REACT_APP_DEBUG` - turn on debug mode
 
 #### docker-compose example
 

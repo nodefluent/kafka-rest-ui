@@ -240,7 +240,7 @@ class App extends Component<Props> {
                 filterable
                 sorted={[
                   {
-                    id: 'offset',
+                    id: 'key',
                     desc: false,
                   },
                 ]}
@@ -279,80 +279,90 @@ class App extends Component<Props> {
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              <div style={{ display: 'flex', padding: '12px', height: '100%', overflow: 'overlay' }}>
+              <div style={{ display: 'flex', height: '100%', overflow: 'overlay' }}>
                 <form>
-                  <Panel
-                    header={(<h3>Client settings</h3>)}
-                    bsStyle="info"
-                  >
-                    <FieldGroup
-                      id="timeout"
-                      type="number"
-                      label="API request timeout"
-                      help="Kafka rest request timeout in ms (min: 1000, max: 120000)"
-                      value={this.props.settings.timeout}
-                      onChange={(event) => {
-                        if (event.target.validity.valid && this.props.setTimeout) {
-                          this.props.setTimeout(event.target.value);
-                        }
-                      }}
-                      step="100"
-                      min="1000"
-                      max="120000"
-                    />
-                    <FieldGroup
-                      id="window"
-                      type="number"
-                      label="API max window size"
-                      help="Kafka rest max messages per request (min: 1, max: 100000)"
-                      value={this.props.settings.window}
-                      onChange={(event) => {
-                        if (event.target.validity.valid && this.props.setWindow) {
-                          this.props.setWindow(event.target.value);
-                        }
-                      }}
-                      step="1"
-                      min="1"
-                      max="100000"
-                    />
-                  </Panel>
-                  <Panel
-                    header={(<h3>Server settings</h3>)}
-                    bsStyle="success"
-                  >
-                    <FieldGroup
-                      id="url"
-                      type="url"
-                      label="Kafka rest url"
-                      value={this.props.settings.url}
-                      disabled
-                      help="Kafka rest endpoint: REACT_APP_KAFKA_REST_URL"
-                    />
-                    <FieldGroup
-                      id="localstorage"
-                      type="text"
-                      label="Local storage"
-                      value={process.env.REACT_APP_LOCAL_STORAGE !== 'false' ? 'ON' : 'OFF'}
-                      disabled
-                      help="Proxy mode: REACT_APP_LOCAL_STORAGE"
-                    />
-                    <FieldGroup
-                      id="proxy"
-                      type="text"
-                      label="Proxy mode"
-                      value={process.env.REACT_APP_PROXY ? 'ON' : 'OFF'}
-                      disabled
-                      help="Proxy mode: REACT_APP_PROXY"
-                    />
-                    <FieldGroup
-                      id="debug"
-                      type="text"
-                      label="Debug mode"
-                      value={process.env.REACT_APP_DEBUG ? 'ON' : 'OFF'}
-                      disabled
-                      help="Debug mode: REACT_APP_DEBUG"
-                    />
-                  </Panel>
+                  <table style={{ borderCollapse: 'separate', borderSpacing: '10px' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ verticalAlign: 'top' }}>
+                          <Panel
+                            header={(<h3>Server settings</h3>)}
+                            bsStyle="success"
+                          >
+                            <FieldGroup
+                              id="url"
+                              type="url"
+                              label="Kafka rest url"
+                              value={this.props.settings.url}
+                              disabled
+                              help="Kafka rest endpoint: REACT_APP_KAFKA_REST_URL"
+                            />
+                            <FieldGroup
+                              id="localstorage"
+                              type="text"
+                              label="Local storage"
+                              value={process.env.REACT_APP_LOCAL_STORAGE !== 'false' ? 'ON' : 'OFF'}
+                              disabled
+                              help="Proxy mode: REACT_APP_LOCAL_STORAGE"
+                            />
+                            <FieldGroup
+                              id="proxy"
+                              type="text"
+                              label="Proxy mode"
+                              value={process.env.REACT_APP_PROXY ? 'ON' : 'OFF'}
+                              disabled
+                              help="Proxy mode: REACT_APP_PROXY"
+                            />
+                            <FieldGroup
+                              id="debug"
+                              type="text"
+                              label="Debug mode"
+                              value={process.env.REACT_APP_DEBUG ? 'ON' : 'OFF'}
+                              disabled
+                              help="Debug mode: REACT_APP_DEBUG"
+                            />
+                          </Panel>
+                        </td>
+                        <td style={{ verticalAlign: 'top' }}>
+                          <Panel
+                            header={(<h3>Client settings</h3>)}
+                            bsStyle="info"
+                          >
+                            <FieldGroup
+                              id="timeout"
+                              type="number"
+                              label="API request timeout"
+                              help="Kafka rest request timeout in ms (min: 1000, max: 120000)"
+                              value={this.props.settings.timeout}
+                              onChange={(event) => {
+                                if (event.target.validity.valid && this.props.setTimeout) {
+                                  this.props.setTimeout(event.target.value);
+                                }
+                              }}
+                              step="100"
+                              min="1000"
+                              max="120000"
+                            />
+                            <FieldGroup
+                              id="window"
+                              type="number"
+                              label="API max window size"
+                              help="Kafka rest max messages per request (min: 1, max: 100000)"
+                              value={this.props.settings.window}
+                              onChange={(event) => {
+                                if (event.target.validity.valid && this.props.setWindow) {
+                                  this.props.setWindow(event.target.value);
+                                }
+                              }}
+                              step="1"
+                              min="1"
+                              max="100000"
+                            />
+                          </Panel>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </form>
               </div>
             </TabPanel>

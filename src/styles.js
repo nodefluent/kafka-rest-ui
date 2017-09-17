@@ -1,4 +1,6 @@
 // @flow
+import React from 'react';
+import ReactJson from 'react-json-view';
 
 export const topicPartitionColumns = [
   {
@@ -94,11 +96,21 @@ export const messageColumns = [
   {
     id: 'value',
     Header: 'Value',
-    accessor: (m :Object) => (m.value ? JSON.stringify(m.value) : 'null'),
+    accessor: 'value',
     style: {
       wordWrap: 'break-word',
-      whiteSpace: 'normal',
+      whiteSpace: 'pre-wrap',
     },
-    filterMethod: (filter: any, row: any) => row[filter.id].includes(filter.value),
+    filterMethod: (filter: any, row: any) => JSON.stringify(row[filter.id]).includes(filter.value),
+    Cell: (row: any) => (
+      (row.value && typeof row.value === 'object' &&
+        <ReactJson
+          src={row.value}
+          name={null}
+          displayDataTypes={false}
+          iconStyle={'circle'}
+        />) ||
+      (typeof row.value === 'string' && <div>{row.value}</div>)
+    ),
   },
 ];

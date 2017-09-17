@@ -7,5 +7,5 @@ wip
 
 [ ] Replace caddy server with nginx
 [ ] Add multi enpoint support
-[ ] Add topic configs
-[ ] 
+[ ] refactor mapping in reducers
+[ ] write some tests

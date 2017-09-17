@@ -18,6 +18,7 @@ export type ConsumerAction = {
   offset?: string,
   timeout?: number,
   page?: number,
+  payload?: Object,
 }
 
 export type Topics = {

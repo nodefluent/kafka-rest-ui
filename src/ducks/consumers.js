@@ -90,12 +90,15 @@ export default function reducer(
 
     // clear if reload the site
     case 'persist/REHYDRATE': {
-      return {
-        ...action.payload.consumers,
-        loading: false,
-        error: null,
-        progress: '',
-      };
+      if (action.payload && action.payload.consumers) {
+        return {
+          ...action.payload.consumers,
+          loading: false,
+          error: null,
+          progress: '',
+        };
+      }
+      return state;
     }
 
     case CLEAR: {

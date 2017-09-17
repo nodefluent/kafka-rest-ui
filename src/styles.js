@@ -94,7 +94,7 @@ export const messageColumns = [
   {
     id: 'value',
     Header: 'Value',
-    accessor: 'value',
+    accessor: (m :Object) => (m.value ? JSON.stringify(m.value) : 'null'),
     style: {
       wordWrap: 'break-word',
       whiteSpace: 'normal',

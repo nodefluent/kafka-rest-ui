@@ -91,7 +91,7 @@ export default function reducer(
     // clear if reload the site
     case 'persist/REHYDRATE': {
       return {
-        ...state,
+        ...action.payload.consumers,
         loading: false,
         error: null,
         progress: '',

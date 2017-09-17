@@ -58,7 +58,7 @@ export default function reducer(
   }
 }
 
-export const setTimeout = (timeout :number) => ({
+export const setRequestTimeout = (timeout :number) => ({
   type: SET_TIMEOUT,
   timeout,
 });

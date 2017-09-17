@@ -24,7 +24,7 @@ import 'react-table/react-table.css';
 
 import { createConsumer, clear as consumersClear, setPage } from './ducks/consumers';
 import { getTopics, clear as topicsClear } from './ducks/topics';
-import { setTabIndex, setTimeout, setUrl, setWindow } from './ducks/settings';
+import { setTabIndex, setRequestTimeout, setUrl, setWindow } from './ducks/settings';
 
 import { messageColumns, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
@@ -35,7 +35,7 @@ import './App.css';
 type Props = {
   createConsumer: void,
   getTopics: void,
-  setTimeout: void,
+  setRequestTimeout: void,
   setUrl: void,
   setPage: void,
   setTabIndex: void,
@@ -53,10 +53,13 @@ class App extends Component<Props> {
       if (this.props.setUrl) this.props.setUrl(process.env.REACT_APP_KAFKA_REST_URL);
     }
     if (process.env.REACT_APP_TIMEOUT) {
-      if (this.props.setTimeout) this.props.setTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
+      if (this.props.setRequestTimeout) this.props.setRequestTimeout(parseInt(process.env.REACT_APP_TIMEOUT, 10));
     }
-    if (this.props.getTopics) this.props.getTopics();
     if (this.props.consumersClear) this.props.consumersClear();
+    if (this.props.getTopics) {
+      this.props.getTopics();
+      setTimeout(this.props.getTopics, 1000); // if persist rewrite topics
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -335,8 +338,8 @@ class App extends Component<Props> {
                               help="Kafka rest request timeout in ms (min: 1000, max: 120000)"
                               value={this.props.settings.timeout}
                               onChange={(event) => {
-                                if (event.target.validity.valid && this.props.setTimeout) {
-                                  this.props.setTimeout(event.target.value);
+                                if (event.target.validity.valid && this.props.setRequestTimeout) {
+                                  this.props.setRequestTimeout(event.target.value);
                                 }
                               }}
                               step="100"
@@ -405,7 +408,7 @@ const mapDispatchToProps = {
   createConsumer,
   getTopics,
   setPage,
-  setTimeout,
+  setRequestTimeout,
   setUrl,
   setTabIndex,
   setWindow,

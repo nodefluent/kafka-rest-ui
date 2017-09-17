@@ -1,9 +1,9 @@
 ## Kafka REST UI :mushroom:
 [![Dependency Status](https://david-dm.org/nodefluent/kafka-rest-ui.svg)](https://david-dm.org/nodefluent/kafka-rest-ui)
 
-> NOTE: the goal of this project is to mimic confluent/kafka-rest-proxy to offer a faster interface to topic data for applications like kafka-topics-ui, 
-
 Kafka rest ui is a kafka topics browser.
+
+> NOTE: the goal of this project is to offer a fast user interface [kafka-rest](https://github.com/nodefluent/kafka-rest). 
 
 #### Features:
 

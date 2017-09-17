@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import ReactJson from 'react-json-view';
-import JSONTree from 'react-json-tree';
 import ReactTable from 'react-table';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
 import Icon from 'react-icons-kit';
@@ -21,7 +20,7 @@ import { createConsumer, clear as consumersClear, setPage } from './ducks/consum
 import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTabIndex, setTimeout, setUrl, setWindow } from './ducks/settings';
 
-import { colorTheme, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
+import { messageColumns, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
 import nodefluent from './nodefluent.png';
@@ -230,21 +229,19 @@ class App extends Component<Props> {
               </div>
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
-              {this.props.consumers.loading && <div className="Progress">
-                <Icon className="load" icon={ic_loop} />
-                {this.props.consumers.progress}
-              </div> }
-              {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
-              <div className="Messages">
-                <JSONTree
-                  data={this.props.consumers.records}
-                  theme={colorTheme}
-                  hideRoot={false}
-                  shouldExpandNode={() => true}
-                />
-              </div>}
-              {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&
-                (<div className="NoContent">No records found</div>)}
+              <ReactTable
+                style={{ height: '100%' }}
+                filterable
+                sorted={[
+                  {
+                    id: 'offset',
+                    desc: false,
+                  },
+                ]}
+                data={this.props.consumers.records}
+                columns={messageColumns}
+                defaultPageSize={25}
+              />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>
               <ReactTable

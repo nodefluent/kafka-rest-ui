@@ -282,43 +282,6 @@ class App extends Component<Props> {
               <div style={{ display: 'flex', padding: '12px', height: '100%', overflow: 'overlay' }}>
                 <form>
                   <Panel
-                    header={(<h3>Server settings</h3>)}
-                    bsStyle="success"
-                  >
-                    <FieldGroup
-                      id="url"
-                      type="url"
-                      label="Kafka rest url"
-                      value={this.props.settings.url}
-                      disabled
-                      help="Kafka rest endpoint: REACT_APP_KAFKA_REST_URL"
-                    />
-                    <FieldGroup
-                      id="localstorage"
-                      type="text"
-                      label="Local storage"
-                      value={process.env.REACT_APP_LOCAL_STORAGE === 'false' ? 'ON' : 'OFF'}
-                      disabled
-                      help="Proxy mode: REACT_APP_LOCAL_STORAGE"
-                    />
-                    <FieldGroup
-                      id="proxy"
-                      type="text"
-                      label="Proxy mode"
-                      value={process.env.REACT_APP_PROXY ? 'ON' : 'OFF'}
-                      disabled
-                      help="Proxy mode: REACT_APP_PROXY"
-                    />
-                    <FieldGroup
-                      id="debug"
-                      type="text"
-                      label="Debug mode"
-                      value={process.env.REACT_APP_DEBUG ? 'ON' : 'OFF'}
-                      disabled
-                      help="Debug mode: REACT_APP_DEBUG"
-                    />
-                  </Panel>
-                  <Panel
                     header={(<h3>Client settings</h3>)}
                     bsStyle="info"
                   >
@@ -351,6 +314,43 @@ class App extends Component<Props> {
                       step="1"
                       min="1"
                       max="100000"
+                    />
+                  </Panel>
+                  <Panel
+                    header={(<h3>Server settings</h3>)}
+                    bsStyle="success"
+                  >
+                    <FieldGroup
+                      id="url"
+                      type="url"
+                      label="Kafka rest url"
+                      value={this.props.settings.url}
+                      disabled
+                      help="Kafka rest endpoint: REACT_APP_KAFKA_REST_URL"
+                    />
+                    <FieldGroup
+                      id="localstorage"
+                      type="text"
+                      label="Local storage"
+                      value={process.env.REACT_APP_LOCAL_STORAGE !== 'false' ? 'ON' : 'OFF'}
+                      disabled
+                      help="Proxy mode: REACT_APP_LOCAL_STORAGE"
+                    />
+                    <FieldGroup
+                      id="proxy"
+                      type="text"
+                      label="Proxy mode"
+                      value={process.env.REACT_APP_PROXY ? 'ON' : 'OFF'}
+                      disabled
+                      help="Proxy mode: REACT_APP_PROXY"
+                    />
+                    <FieldGroup
+                      id="debug"
+                      type="text"
+                      label="Debug mode"
+                      value={process.env.REACT_APP_DEBUG ? 'ON' : 'OFF'}
+                      disabled
+                      help="Debug mode: REACT_APP_DEBUG"
                     />
                   </Panel>
                 </form>

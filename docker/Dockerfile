@@ -1,7 +1,7 @@
 FROM node:alpine
 MAINTAINER nodefluent
 
-ENV KAFKA_REST_UI_VERSION=0.2.0
+ENV KAFKA_REST_UI_VERSION=0.4.0
 
 WORKDIR /
 COPY ./entrypoint.sh /entrypoint.sh

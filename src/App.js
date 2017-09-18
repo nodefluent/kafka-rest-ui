@@ -203,6 +203,7 @@ class App extends Component<Props> {
                           return;
                         }
                         const topicName = this.props.topics.topic.name;
+                        if (this.props.setPage) this.props.setPage(0);
                         if (this.props.createConsumer) this.props.createConsumer(topicName, 'earliest');
                       } :
                       () => {}}
@@ -232,6 +233,7 @@ class App extends Component<Props> {
                           return;
                         }
                         const topicName = this.props.topics.topic.name;
+                        if (this.props.setPage) this.props.setPage(0);
                         if (this.props.createConsumer) this.props.createConsumer(topicName, 'latest');
                       } :
                       () => {}}

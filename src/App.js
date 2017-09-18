@@ -17,6 +17,9 @@ import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Button, FormGroup, ControlLabel, FormControl, HelpBlock, Panel } from 'react-bootstrap';
+import { purgeStoredState } from 'redux-persist';
+import localForage from 'localforage';
+
 // $FlowIgnore
 import 'react-tabs/style/react-tabs.css';
 // $FlowIgnore
@@ -361,6 +364,15 @@ class App extends Component<Props> {
                               min="1"
                               max="100000"
                             />
+                            <FormGroup controlId={'clearLocalStorage'}>
+                              <ControlLabel>Clear local storage</ControlLabel>
+                              <Button
+                                type={'submit'}
+                                style={{ display: 'block' }}
+                                onClick={() => purgeStoredState({ storage: localForage }, ['consumers', 'topics'])}
+                              >Clear</Button>
+                              <HelpBlock>{'Clear the local storage data, but not the client settings'}</HelpBlock>
+                            </FormGroup>
                           </Panel>
                         </td>
                       </tr>

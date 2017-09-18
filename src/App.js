@@ -304,20 +304,20 @@ class App extends Component<Props> {
                               help="Kafka rest endpoint: REACT_APP_KAFKA_REST_URL"
                             />
                             <FieldGroup
-                              id="localstorage"
-                              type="text"
-                              label="Local storage"
-                              value={process.env.REACT_APP_LOCAL_STORAGE !== 'false' ? 'ON' : 'OFF'}
-                              disabled
-                              help="Proxy mode: REACT_APP_LOCAL_STORAGE"
-                            />
-                            <FieldGroup
                               id="proxy"
                               type="text"
                               label="Proxy mode"
                               value={process.env.REACT_APP_PROXY ? 'ON' : 'OFF'}
                               disabled
                               help="Proxy mode: REACT_APP_PROXY"
+                            />
+                            <FieldGroup
+                              id="localstorage"
+                              type="text"
+                              label="Local storage"
+                              value={process.env.REACT_APP_LOCAL_STORAGE !== 'false' ? 'ON' : 'OFF'}
+                              disabled
+                              help="Proxy mode: REACT_APP_LOCAL_STORAGE"
                             />
                             <FieldGroup
                               id="debug"
@@ -368,9 +368,12 @@ class App extends Component<Props> {
                               <ControlLabel>Clear local storage</ControlLabel>
                               <Button
                                 type={'submit'}
+                                href="/"
                                 style={{ display: 'block' }}
+                                bsStyle="danger"
+                                disabled={process.env.REACT_APP_LOCAL_STORAGE === 'false'}
                                 onClick={() => purgeStoredState({ storage: localForage }, ['consumers', 'topics'])}
-                              >Clear</Button>
+                              >Clear cache</Button>
                               <HelpBlock>{'Clear the local storage data, but not the client settings'}</HelpBlock>
                             </FormGroup>
                           </Panel>

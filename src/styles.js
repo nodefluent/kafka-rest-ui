@@ -108,6 +108,7 @@ export const messageColumns = [
           src={row.value}
           name={null}
           displayDataTypes={false}
+          collapsed={2}
           iconStyle={'circle'}
         />) ||
       (typeof row.value === 'string' && <div>{row.value}</div>)

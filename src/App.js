@@ -252,7 +252,7 @@ class App extends Component<Props> {
                 ]}
                 data={this.props.consumers.records}
                 columns={messageColumns}
-                defaultPageSize={10}
+                defaultPageSize={5}
               />
             </TabPanel>
             <TabPanel style={{ height: '100%' }}>

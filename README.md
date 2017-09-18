@@ -90,4 +90,3 @@ services:
 - [ ] Add multi enpoint support
 - [ ] refactor mapping in reducers
 - [ ] write some tests
-- [ ] write better documentation

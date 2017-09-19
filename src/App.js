@@ -125,6 +125,7 @@ class App extends Component<Props> {
                   color: '#AAA',
                   margin: '10px 12px',
                   padding: '4px 12px 2px',
+                  display: 'inline-block',
                 }}
                 >Topics</div>
                 {this.props.topics.list.map((topic, index) =>
@@ -155,7 +156,7 @@ class App extends Component<Props> {
             </div>
           </div>
           <Tabs
-            style={{ height: '-webkit-calc(100% - 44px)' }}
+            style={{ height: '-webkit-calc(100% - 44px)', width: '80%', display: 'inline-block' }}
             selectedIndex={this.props.settings.tabIndex}
             onSelect={(tabIndex: number) => {
               if (this.props.setTabIndex) this.props.setTabIndex(tabIndex);

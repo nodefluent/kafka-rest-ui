@@ -1,6 +1,5 @@
-// @flow
 import React, { Component } from 'react';
-import ReactJson from 'react-json-view';
+import JSONTree from 'react-json-tree';
 import ReactTable from 'react-table';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
 import Icon from 'react-icons-kit';
@@ -29,7 +28,7 @@ import { createConsumer, clear as consumersClear, setPage } from './ducks/consum
 import { getTopics, clear as topicsClear } from './ducks/topics';
 import { setTabIndex, setRequestTimeout, setUrl, setWindow } from './ducks/settings';
 
-import { messageColumns, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
+import { messageColumns, consumerColumns, topicConfigColumns, topicPartitionColumns, monokaiTheme } from './styles';
 import type { Consumers, Topics, Settings } from './types';
 import logo from './logo.svg';
 import nodefluent from './nodefluent.png';
@@ -176,15 +175,16 @@ class App extends Component<Props> {
                   {this.props.consumers.progress}
                 </div> }
                 {!this.props.consumers.loading && this.props.consumers.records.length > 0 &&
-                  <ReactJson
-                    src={this.props.consumers.records.length > 0
+                  <JSONTree
+                    data={this.props.consumers.records.length > 0
                       && typeof this.props.consumers.page === 'number'
                       && this.props.consumers.page >= 0 ?
                       this.props.consumers.records[this.props.consumers.page] :
                       this.props.consumers.records}
-                    name={null}
-                    displayDataTypes={false}
-                    iconStyle={'circle'}
+                    theme={monokaiTheme}
+                    invertTheme
+                    hideRoot
+                    shouldExpandNode={() => true}
                   />}
               </div>
               {!this.props.consumers.loading && this.props.consumers.records.length === 0 &&

@@ -3,6 +3,7 @@
   "version": "0.6.1",
   "private": true,
   "repository": "git@github.com:nodefluent/kafka-rest-ui.git",
+  "homepage" : "https://nodefluent.github.io/kafka-rest-ui/",
   "author": "nodefluent",
   "license": "MIT",
   "dependencies": {

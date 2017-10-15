@@ -1,0 +1,14 @@
+location ~ $REACT_APP_KAFKA_REST_URL/(?<section>.+) {
+	add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+	add_header 'Access-Control-Allow-Credentials' 'true' always;
+	add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+	add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+
+	proxy_pass $PROXY_URL$section;
+	proxy_redirect off;
+
+	proxy_set_header  X-Real-IP  $remote_addr;
+	proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header  Host $http_host;
+}
+

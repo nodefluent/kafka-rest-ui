@@ -4,16 +4,10 @@ server {
     location / {
 		$BASIC_AUTH
 		root   /usr/share/nginx/kafka-rest-ui/build/;
-        index  index.html index.htm;
 	}
 	location /kafka-rest-ui {
 		rewrite   ^/kafka-rest-ui/(.*)$  /$1  permanent;
 	}
 
     include /etc/nginx/conf.d/*.location;
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
 }

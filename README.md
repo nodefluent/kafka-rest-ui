@@ -86,7 +86,7 @@ services:
 
 ## TODO
 
-- [ ] Replace caddy server with nginx
+- [x] Replace caddy server with nginx
 - [ ] Add multi enpoint support
 - [ ] refactor mapping in reducers
 - [ ] write some tests

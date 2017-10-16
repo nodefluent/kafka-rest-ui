@@ -1,7 +1,7 @@
 FROM node:alpine
 MAINTAINER nodefluent
 
-ENV KAFKA_REST_UI_VERSION=0.6.1
+ENV KAFKA_REST_UI_VERSION=0.6.2
 ENV NODE_ENV=production
 COPY . /usr/share/nginx/kafka-rest-ui/
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf

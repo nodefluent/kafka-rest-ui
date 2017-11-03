@@ -16,8 +16,12 @@ html, body {
 
 .App {
   height: -webkit-calc(100% - 42px);
+  height: -moz-calc(100% - 42px);
+  height: calc(100% - 42px);
   margin: 0;
   min-height: -webkit-calc(100% - 42px);
+  min-height: -moz-calc(100% - 42px);
+  min-height: calc(100% - 42px);
   padding: 0;
 }
 
@@ -78,6 +82,8 @@ html, body {
 
 .Messages {
   height: -webkit-calc(100% - 44px);
+  height: -moz-calc(100% - 44px);
+  height: calc(100% - 44px);
   overflow: auto;
 }
 

@@ -25,7 +25,7 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
 
   kafka-rest:
-    image: nodefluent/kafka-rest:alpine
+    image: nodefluent/kafka-rest:latest
     ports:
       - 8082:8082
     links:

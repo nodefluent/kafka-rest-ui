@@ -105,7 +105,7 @@ class App extends Component<Props> {
         <div className="FullHeight">
           <div className="SideNav">
             <div style={{
-              height: '-webkit-calc(100% - 42px)',
+              height: 'calc(100% - 42px)',
               overflow: 'auto',
             }}
             >
@@ -156,7 +156,7 @@ class App extends Component<Props> {
             </div>
           </div>
           <Tabs
-            style={{ height: '-webkit-calc(100% - 44px)', width: '80%', display: 'inline-block' }}
+            style={{ height: 'calc(100% - 44px)', width: '80%', display: 'inline-block' }}
             selectedIndex={this.props.settings.tabIndex}
             onSelect={(tabIndex: number) => {
               if (this.props.setTabIndex) this.props.setTabIndex(tabIndex);

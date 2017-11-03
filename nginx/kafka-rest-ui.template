@@ -8,6 +8,10 @@ server {
 	location /kafka-rest-ui {
 		rewrite   ^/kafka-rest-ui/(.*)$  /$1  permanent;
 	}
+    location /admin/healthcheck {
+        access_log off;
+        return 200;
+    }
 
     include /etc/nginx/conf.d/*.location;
 }

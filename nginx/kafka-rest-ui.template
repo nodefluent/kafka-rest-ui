@@ -10,7 +10,8 @@ server {
 	}
     location /admin/healthcheck {
         access_log off;
-        return 200;
+        default_type application/json;
+        return 200 '{"status":"OK"}';
     }
 
     include /etc/nginx/conf.d/*.location;

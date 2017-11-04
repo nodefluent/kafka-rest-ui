@@ -4,7 +4,6 @@ location ~ ^$REACT_APP_KAFKA_REST_URL/(.*)$ {
 	add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
 	add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
 
-    resolver 127.0.0.11;
 	proxy_pass $PROXY_URL$1;
 	proxy_redirect off;
 

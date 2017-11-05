@@ -2,7 +2,7 @@ FROM node:alpine
 MAINTAINER nodefluent
 
 ENV KAFKA_REST_UI_VERSION=0.6.3
-ENV REACT_APP_KAFKA_REST_URL=http://localhost:8082/
+ENV REACT_APP_KAFKA_REST_URL=http://127.0.0.1:8082/
 ENV PROXY=true
 ENV NODE_ENV=production
 ENV BUILD=localhost

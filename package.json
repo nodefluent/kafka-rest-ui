@@ -34,7 +34,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:localhost": "REACT_APP_KAFKA_REST_URL=/api/kafka-rest/ PROXY=true REACT_APP_DEBUG=* react-scripts build",
+    "build:localhost": "REACT_APP_KAFKA_REST_URL=/api/kafka-rest/ PROXY=true REACT_APP_DEBUG=* react-scripts build && yarn docker:build:localhost && yarn docker:push",
+    "docker:build": "docker build -t nodefluent/kafka-rest-ui . --no-cache",
+    "docker:build:localhost": "docker build -t nodefluent/kafka-rest-ui:localhost -f localhost.Dockerfile . --no-cache",
+    "docker:push": "docker push nodefluent/kafka-rest-ui",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "kafka:start": "./kafka-setup/start.sh",

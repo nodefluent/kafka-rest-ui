@@ -50,4 +50,4 @@ export const subscribeToTopic =
 
 export const getRecords =
     (url : string, timeout : number, consumerId :string, topicName :string) =>
-      getInstance(url, timeout).get(`/consumers/${consumerId}/instances/${topicName}/records`, { timeout });
+      getInstance(url, timeout).get(`/consumers/${consumerId}/instances/${topicName}/records?timeout=${timeout}`);

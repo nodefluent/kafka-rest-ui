@@ -8,7 +8,7 @@ ENV PROXY=true
 ENV NODE_ENV=production
 ENV BUILD=localhost
 ENV DEBUG=-*babel*,-*eslint*,*
-COPY ./build/ /usr/share/nginx/kafka-rest-ui/
+COPY ./build/ /usr/share/nginx/kafka-rest-ui/build/
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/kafka-rest-ui.template /etc/nginx/conf.d/kafka-rest-ui.template

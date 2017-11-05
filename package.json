@@ -44,7 +44,7 @@
     "kafka:stop": "./kafka-setup/stop.sh",
     "kafka:logs": "docker-compose --file ./kafka-setup/docker-compose.yml logs -f",
     "kafka:build": "docker-compose --file ./kafka-setup/docker-compose.yml build",
-    "kafka:rick": "yarn kafka:stop && yarn kafka:build && yarn kafka:start && yarn kafka:generate-data && yarn start",
+    "kafka:rick": "yarn kafka:stop && yarn kafka:build && yarn kafka:start && yarn kafka:generate-data && yarn kafka:logs",
     "kafka:producer": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-console-producer.sh --topic=test --broker-list=localhost:9092'",
     "kafka:consumer": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-console-consumer.sh --topic=test --bootstrap-server=localhost:9092 --from-beginning'",
     "kafka:set-topic-config": "docker exec -it kafkasetup_kafka_1 bash -c 'kafka-configs.sh --entity-type=topics --zookeeper=zookeeper:2181 --alter --entity-name=test --add-config=retention.ms=86400000,cleanup.policy=delete'",

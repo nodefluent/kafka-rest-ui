@@ -34,6 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:localhost": "REACT_APP_KAFKA_REST_URL=/api/kafka-rest/ PROXY=true REACT_APP_DEBUG=* react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "kafka:start": "./kafka-setup/start.sh",

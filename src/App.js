@@ -61,7 +61,6 @@ class App extends Component<Props> {
     if (this.props.consumersClear) this.props.consumersClear();
     if (this.props.getTopics) {
       this.props.getTopics();
-      setTimeout(this.props.getTopics, 1000); // if persist rewrite topics
     }
   }
 
@@ -128,7 +127,7 @@ class App extends Component<Props> {
                   display: 'inline-block',
                 }}
                 >Topics</div>
-                {this.props.topics.list.map((topic, index) =>
+                {this.props.topics && this.props.topics.list && this.props.topics.list.map((topic, index) =>
                   (<Nav id={topic} key={`topic${index}`}>
                     <NavIcon><Icon size={20} icon={ic_view_list} /></NavIcon>
                     <NavText>{topic}</NavText>
@@ -300,10 +299,14 @@ class App extends Component<Props> {
                           >
                             <FieldGroup
                               id="url"
-                              type="url"
+                              type="text"
                               label="Kafka rest url"
                               value={this.props.settings.url}
-                              disabled
+                              onChange={(event) => {
+                                if (event.target.validity.valid && this.props.setUrl) {
+                                  this.props.setUrl(event.target.value);
+                                }
+                              }}
                               help="Kafka rest endpoint: REACT_APP_KAFKA_REST_URL"
                             />
                             <FieldGroup

@@ -1,10 +1,10 @@
 // @flow
 import { Observable } from 'rxjs';
-import { GET_TOPIC, GET_TOPICS, received, topicReceived, error } from '../ducks/topics';
+import { GET_TOPIC, GET_TOPICS, REHYDRATE, received, topicReceived, error } from '../ducks/topics';
 import kafkaConfigDescriptions from './kafkaConfigDescriptions';
 
 export function getTopics(action$ :any, store :any, { api } :any) {
-  return action$.ofType(GET_TOPICS)
+  return action$.filter(action => action.type === GET_TOPICS || action.type === REHYDRATE)
     .filter(() => !store.getState().loading)
     .switchMap(() => {
       const state = store.getState();

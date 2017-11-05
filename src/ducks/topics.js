@@ -7,6 +7,7 @@ export const RECEIVED = 'kafka-rest/topics/received';
 export const TOPIC_RECEIVED = 'kafka-rest/topics/topic-received';
 export const ERROR = 'kafka-rest/topics/error';
 export const CLEAR = 'kafka-rest/topics/clear';
+export const REHYDRATE = 'persist/REHYDRATE';
 
 export default function reducer(
   state :Topics = { list: [], topic: { name: '', partiotions: [], configs: [] }, loading: false, error: '' },

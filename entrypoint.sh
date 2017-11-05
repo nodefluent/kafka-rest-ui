@@ -38,11 +38,9 @@ fi
 envsubst '$HTTP_PORT $BASIC_AUTH' < /etc/nginx/conf.d/kafka-rest-ui.template > /etc/nginx/conf.d/kafka-rest-ui.conf
 cat /etc/nginx/conf.d/kafka-rest-ui.conf
 
-echo "Building application..."
-yarn build
-
-if [[ "${BUILD}" == "localhost" ]]; then
-    exit 0
+if [[ "${BUILD}" != "localhost" ]]; then
+    echo "Building application..."
+    yarn build
 fi
 
 echo

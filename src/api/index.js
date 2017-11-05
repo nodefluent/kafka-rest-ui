@@ -49,9 +49,5 @@ export const subscribeToTopic =
     });
 
 export const getRecords =
-  (url : string, timeout : number, consumerId :string, topicName :string) => {
-    const params = new URLSearchParams();
-    params.append('timeout', timeout.toString() || '2000');
-
-    return getInstance(url, timeout).get(`/consumers/${consumerId}/instances/${topicName}/records`, params);
-  };
+    (url : string, timeout : number, consumerId :string, topicName :string) =>
+      getInstance(url, timeout).get(`/consumers/${consumerId}/instances/${topicName}/records`, { timeout });

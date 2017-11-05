@@ -3,7 +3,7 @@ server {
     server_name  localhost;
     location / {
 		$BASIC_AUTH
-		root   /usr/share/nginx/kafka-rest-ui/build/;
+		root   /usr/share/nginx/kafka-rest-ui/;
 	}
 	location /kafka-rest-ui {
 		rewrite   ^/kafka-rest-ui/(.*)$  /$1  permanent;

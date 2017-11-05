@@ -41,6 +41,10 @@ cat /etc/nginx/conf.d/kafka-rest-ui.conf
 echo "Building application..."
 yarn build
 
+if [[ "${BUILD}" == "localhost" ]]; then
+    exit 0
+fi
+
 echo
 echo "Starting server..."
 echo "http://0.0.0.0:${HTTP_PORT}"

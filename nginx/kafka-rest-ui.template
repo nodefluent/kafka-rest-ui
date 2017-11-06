@@ -5,8 +5,8 @@ server {
 		$BASIC_AUTH
 		root   /usr/share/nginx/kafka-rest-ui/build/;
 	}
-	location /kafka-rest-ui {
-		rewrite   ^/kafka-rest-ui/(.*)$  /$1  permanent;
+	location /kafka-rest-ui/ {
+        proxy_pass http://localhost:$HTTP_PORT/;
 	}
     location /admin/healthcheck {
         access_log off;

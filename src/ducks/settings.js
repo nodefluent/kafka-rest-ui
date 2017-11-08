@@ -5,6 +5,7 @@ export const SET_TIMEOUT = 'kafka-rest/settings/set-timeout';
 export const SET_WINDOW = 'kafka-rest/settings/set-window';
 export const SET_URL = 'kafka-rest/settings/set-url';
 export const SET_TAB_INDEX = 'kafka-rest/settings/set-tab-index';
+export const SET_OFFSET = 'kafka-rest/settings/set-offset';
 export const CLEAR = 'kafka-rest/settings/clear';
 export const ERROR = 'kafka-rest/settings/error';
 
@@ -39,6 +40,14 @@ export default function reducer(
         tabIndex: action.tabIndex || 0,
       };
     }
+
+    case SET_OFFSET: {
+      return {
+        ...state,
+        offset: action.offset || 'earliest',
+      };
+    }
+
     case ERROR: {
       return {
         ...state,
@@ -76,6 +85,11 @@ export const setUrl = (url :string) => ({
 export const setTabIndex = (tabIndex :number) => ({
   type: SET_TAB_INDEX,
   tabIndex,
+});
+
+export const setOffset = (offset :string) => ({
+  type: SET_OFFSET,
+  offset,
 });
 
 export const clear = () => ({

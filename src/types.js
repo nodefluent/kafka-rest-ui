@@ -50,6 +50,7 @@ export type Settings = {
   window: number,
   error?: string,
   tabIndex?: number,
+  offset?: string,
 }
 
 export type SettingAction = {

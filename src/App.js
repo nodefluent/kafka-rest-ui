@@ -16,7 +16,17 @@ import { ic_timeline } from 'react-icons-kit/md/ic_timeline';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Button, FormGroup, ControlLabel, FormControl, HelpBlock, Panel } from 'react-bootstrap';
+import {
+  Button,
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+  Panel,
+} from 'react-bootstrap';
 import { purgeStoredState } from 'redux-persist';
 import localForage from 'localforage';
 
@@ -27,7 +37,7 @@ import 'react-table/react-table.css';
 
 import { createConsumer, clear as consumersClear, setPage } from './ducks/consumers';
 import { getTopics, clear as topicsClear } from './ducks/topics';
-import { setTabIndex, setRequestTimeout, setUrl, setWindow } from './ducks/settings';
+import { setTabIndex, setRequestTimeout, setUrl, setWindow, setOffset } from './ducks/settings';
 
 import { messageColumns, consumerColumns, topicConfigColumns, topicPartitionColumns } from './styles';
 import type { Consumers, Topics, Settings } from './types';
@@ -43,6 +53,7 @@ type Props = {
   setPage: void,
   setTabIndex: void,
   setWindow: void,
+  setOffset: void,
   consumersClear: void,
   topicsClear: void,
   topics: Topics,
@@ -114,7 +125,7 @@ class App extends Component<Props> {
                 onItemSelection={!this.props.consumers.loading ?
                   (topicId, parent) => {
                     const topicName = topicId.replace(`${parent}/`, '');
-                    if (this.props.createConsumer) this.props.createConsumer(topicName);
+                    if (this.props.createConsumer) this.props.createConsumer(topicName, this.props.settings.offset);
                     if (this.props.setTabIndex) this.props.setTabIndex(0);
                     if (this.props.setPage) this.props.setPage(0);
                   } :
@@ -370,6 +381,21 @@ class App extends Component<Props> {
                               min="1"
                               max="100000"
                             />
+                            <FormGroup controlId="defaultOffset">
+                              <ControlLabel>Default consumer offset</ControlLabel>
+                              <ButtonToolbar>
+                                <ToggleButtonGroup
+                                  type="radio"
+                                  name="offsetOptions"
+                                  defaultValue={this.props.settings.offset || 'earliest'}
+                                  onChange={value => this.props.setOffset && this.props.setOffset(value)}
+                                >
+                                  <ToggleButton value={'earliest'}>Earliest</ToggleButton>
+                                  <ToggleButton value={'latest'}>Latest</ToggleButton>
+                                </ToggleButtonGroup>
+                              </ButtonToolbar>
+                              <HelpBlock>{'Clear the local storage data, but not the client settings'}</HelpBlock>
+                            </FormGroup>
                             <FormGroup controlId={'clearLocalStorage'}>
                               <ControlLabel>Clear local storage</ControlLabel>
                               <Button
@@ -433,6 +459,7 @@ const mapDispatchToProps = {
   setUrl,
   setTabIndex,
   setWindow,
+  setOffset,
   topicsClear,
 };
 

@@ -1,9 +1,9 @@
 ## Kafka REST UI :mushroom:
 [![Dependency Status](https://david-dm.org/nodefluent/kafka-rest-ui.svg)](https://david-dm.org/nodefluent/kafka-rest-ui)
 
-Kafka rest ui is a kafka topics browser.
+Kafka-Rest-UI is a kafka topics browser.
 
-> NOTE: the goal of this project is to offer a fast user interface [kafka-rest](https://github.com/nodefluent/kafka-rest).
+> NOTE: The goal of this project is to offer a fast user interface for [kafka-rest](https://github.com/nodefluent/kafka-rest).
 
 #### Features:
 
@@ -88,5 +88,5 @@ services:
 
 - [x] Replace caddy server with nginx
 - [ ] Add multi enpoint support
-- [ ] refactor mapping in reducers
-- [ ] write some tests
+- [ ] Refactor mapping in reducers
+- [ ] Write tests
